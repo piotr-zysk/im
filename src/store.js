@@ -6,9 +6,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     title: 'My title from VUEX',
+    //Google applicaion Cllient ID, required for authentication (client ID created for backend api located in 'intraportal.net')
     googleSignInParams: {
         client_id: '1055476069803-mudpnjdhi6d7es9tuosavl5sn4nd08ip.apps.googleusercontent.com'
     },
+    //Google user - use data fetched from Google after Google authentication
     guser: {
       email: '',
       token: ''
@@ -24,4 +26,3 @@ export default new Vuex.Store({
   }
 })
 
-// https://coursetro.com/posts/code/144/A-Vuex-Tutorial-by-Example---Learn-Vue-State-Management
