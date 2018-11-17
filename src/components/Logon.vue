@@ -3,62 +3,51 @@
   <g-signin-button v-show="!this.guser.Name"
     :params="googleSignInParams"
     @success="onSignInSuccess"
-    @error="onSignInError" @click="myClickEvent" ref="myBtn">
+    @error="onSignInError" ref="myBtn">
     Sign in with Google
   </g-signin-button>
-  {{guser.Name}} {{guser.Email}} {{gToken}}
+ {{guser.email}} {{guser.token}}
   {{title}}
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from "vuex";
 export default {
-  name: 'Logon',
-  computed: mapState([
-    'title'
-  ]),
+  name: "Logon",
+  computed: mapState(["title", "googleSignInParams", "guser"]),
   mounted() {
     //this.methods.myClickEvent(null);
   },
-  data () {
+  /*data () {
     return {
-      /**
-       * The Auth2 parameters, as seen on
-       * https://developers.google.com/identity/sign-in/web/reference#gapiauth2initparams.
-       * As the very least, a valid client_id must present.
-       * @type {Object}
-       */
       googleSignInParams: {
         client_id: '1055476069803-mudpnjdhi6d7es9tuosavl5sn4nd08ip.apps.googleusercontent.com'
-      },
-      guser: {
-        Name: '',
-        Email: ''
-      },
-      gToken: ''
-
+      }
     }
   },
+  */
   methods: {
-    onSignInSuccess (googleUser) {
+    ...mapMutations(["setGuser"]),
+    onSignInSuccess(googleUser) {
       // `googleUser` is the GoogleUser object that represents the just-signed-in user.
       // See https://developers.google.com/identity/sign-in/web/reference#users
-      const profile = googleUser.getBasicProfile() // etc etc
-      this.guser.Name=profile.getName();
-      this.guser.Email=profile.getEmail();
-      this.gToken=googleUser.getAuthResponse().id_token;
+      const profile = googleUser.getBasicProfile(); // etc etc
+      this.guser.Name = profile.getName();
+      this.guser.Email = profile.getEmail();
+      this.gToken = googleUser.getAuthResponse().id_token;
+
+      this.setGuser({
+        email: profile.getEmail(),
+        token: googleUser.getAuthResponse().id_token
+      });
     },
-    onSignInError (error) {
+    onSignInError(error) {
       // `error` contains any error occurred.
-      console.log('OH NOES', error)
-    },
-    myClickEvent($event) {
-            const elem = this.$refs.myBtn
-            elem.click()
-        }
+      console.log("OH NOES", error);
+    }
   }
-}
+};
 </script>
 
 <style>

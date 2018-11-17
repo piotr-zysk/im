@@ -5,10 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    title: 'My title from VUEX'
+    title: 'My title from VUEX',
+    googleSignInParams: {
+        client_id: '1055476069803-mudpnjdhi6d7es9tuosavl5sn4nd08ip.apps.googleusercontent.com'
+    },
+    guser: {
+      email: '',
+      token: ''
+    }
   },
   mutations: {
-
+    setGuser (state, guser) {
+      state.guser=guser;
+    }
   },
   actions: {
 
