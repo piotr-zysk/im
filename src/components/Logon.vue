@@ -7,11 +7,17 @@
     Sign in with Google
   </g-signin-button>
   {{guser.Name}} {{guser.Email}} {{gToken}}
+  {{title}}
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  name: 'Logon',
+  computed: mapState([
+    'title'
+  ]),
   mounted() {
     //this.methods.myClickEvent(null);
   },
