@@ -6,7 +6,6 @@
     @error="onSignInError" ref="myBtn">
     Sign in with Google
   </g-signin-button>
- {{guser.email}} {{guser.token}}
   {{title}}
   </div>
 </template>

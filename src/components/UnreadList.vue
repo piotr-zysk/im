@@ -7,8 +7,11 @@
 
 <script>
 import ImService from '@/../services/ImService'
+import { mapState } from "vuex";
+
 export default {
   name: "UnreadList",
+  computed: mapState(["guser"]),
   data: function() {
     return {
       test: "null"
@@ -19,7 +22,7 @@ export default {
   },
   methods: {
     async getGroups() {
-      const response = await ImService.getGroups();
+      const response = await ImService.authenticate(this.guser.token);
       this.test=response.data;
     }
   }
