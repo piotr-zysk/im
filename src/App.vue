@@ -2,17 +2,19 @@
   <div id="app">
     
     <Logon/>
+    <UnreadList/>
   </div>
 </template>
 
 <script>
 import MainMenu from './components/MainMenu.vue'
 import Logon from './components/Logon.vue'
+import UnreadList from './components/UnreadList.vue'
 
 export default {
   name: 'app',
   components: {
-    MainMenu, Logon
+    MainMenu, Logon, UnreadList
   }
 }
 </script>
@@ -27,7 +29,9 @@ export default {
   
   margin-top: 60px;
 }
+/*
 * {
 background-color: #34495e;
 }
+*/
 </style>

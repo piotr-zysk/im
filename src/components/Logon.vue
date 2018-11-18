@@ -61,6 +61,6 @@ export default {
   box-shadow: 0 3px 0 #0f69ff;
 }
 .logon {
-  color: #fff;
+  color: #000;
 }
 </style>
