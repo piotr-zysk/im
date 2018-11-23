@@ -16,7 +16,7 @@ import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "MainMenu",
-  computed: mapState(["active_tab"]),
+  computed: mapState(["active_tab","tab_locked"]),
   props: {
     msg: String
   },
@@ -24,6 +24,7 @@ export default {
     ...mapMutations(["changeTab"]),
     is_active_tab(tab) {
       if (this.active_tab == tab) return { menu_item_active: true };
+      else if (this.tab_locked) return { menu_item_locked: true };
       else return { menu_item_inactive: true };
     },
     selectTab(tab){
@@ -61,6 +62,14 @@ export default {
 .menu_item_inactive:hover {
   border-bottom: 3px solid #40739e;
   border-left: 3px solid #40739e;
+  transition: 0.5s;
+}
+.menu_item_locked {
+  color: #7f8fa6;
+}
+.menu_item_locked:hover {
+  border-bottom: 3px solid transparent;
+  border-left: 3px solid transparent;
   transition: 0.5s;
 }
 .menu_item_active {
