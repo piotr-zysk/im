@@ -1,16 +1,27 @@
 <template>
   <div class="mainmenu">
     <div>{{$ml.get('menu_unread')}}</div>
-    <div>Read</div>
-    <div>Create</div>
+    <div>{{$ml.get('menu_read')}}</div>
+    <div>{{$ml.get('menu_sent')}}</div>
+    <div>{{$ml.get('menu_create')}}</div>
 
 
-<button
-	v-for="lang in $ml.list"
-	:key="lang"
+<!--
+  Wybór języka przenieś do dedykowanego komponentu.
+obrazki z flagami wyświetlają się prawidłowo jedynie z poziomu IIS, po recznym skopiowaniu folderu assets.
+Obczaj jak to poprowic / webpack?
+Ewentualnie dodaj batcha, ktory bedzie automatycznie robil build i kopiowal pliki do IISa
+-->
+
+<img src="assets/flags/flag-english.png">
+<div class="lang" v-for="lang in $ml.list" :key="lang">
+<img :src="flag_file(lang)" @click="$ml.change(lang)" :alt="lang">
+
+<!-- <button
 	@click="$ml.change(lang)"
 	v-text="lang"
-/>
+/> -->
+</div>
 
 
   </div>
@@ -23,6 +34,11 @@ export default {
   name: 'MainMenu',
   props: {
     msg: String
+  },
+  methods: {
+    flag_file(lang) {
+      return "assets/flags/flag-"+lang+".png";
+    }
   }
 }
 </script>
@@ -32,6 +48,10 @@ export default {
 
 .mainmenu{
   color: #182124;
+}
+img{
+  height: 25px;
+  width: 40px;
 }
 
 </style>
