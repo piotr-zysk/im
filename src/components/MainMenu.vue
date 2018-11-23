@@ -1,9 +1,9 @@
 <template>
   <div class="mainmenu">
-    <a class="menu_item" :class="is_active_tab('unread')" @click="selectTab('unread')" href=#>{{$ml.get('menu_unread')}}</a>
-    <a class="menu_item" :class="is_active_tab('read')" @click="selectTab('read')" href=#>{{$ml.get('menu_read')}}</a>
-    <a class="menu_item" :class="is_active_tab('sent')" @click="selectTab('sent')" href=#>{{$ml.get('menu_sent')}}</a>
-    <a class="menu_item" :class="is_active_tab('new')" @click="selectTab('new')" href=#>{{$ml.get('menu_create')}}</a>
+    <a class="menu_item" :class="is_active_tab('unread')" @click="selectTab('unread')" href=#><i class="icon ion-md-folder"></i> {{$ml.get('menu_unread')}}</a>
+    <a class="menu_item" :class="is_active_tab('read')" @click="selectTab('read')" href=#><i class="icon ion-md-folder-open"></i> {{$ml.get('menu_read')}}</a>
+    <a class="menu_item" :class="is_active_tab('sent')" @click="selectTab('sent')" href=#><i class="icon ion-md-paper-plane"></i> {{$ml.get('menu_sent')}}</a>
+    <a class="menu_item" :class="is_active_tab('new')" @click="selectTab('new')" href=#><i class="icon ion-md-create"></i> {{$ml.get('menu_create')}}</a>
 
 
 
