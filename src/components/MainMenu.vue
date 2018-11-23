@@ -1,63 +1,69 @@
 <template>
   <div class="mainmenu">
-    <div>{{$ml.get('menu_unread')}}</div>
-    <div>{{$ml.get('menu_read')}}</div>
-    <div>{{$ml.get('menu_sent')}}</div>
-    <div>{{$ml.get('menu_create')}}</div>
+    <a class="menu_item" :class="is_active_tab('unread')" @click="selectTab('unread')" href=#>{{$ml.get('menu_unread')}}</a>
+    <a class="menu_item" :class="is_active_tab('read')" @click="selectTab('read')" href=#>{{$ml.get('menu_read')}}</a>
+    <a class="menu_item" :class="is_active_tab('sent')" @click="selectTab('sent')" href=#>{{$ml.get('menu_sent')}}</a>
+    <a class="menu_item" :class="is_active_tab('new')" @click="selectTab('new')" href=#>{{$ml.get('menu_create')}}</a>
 
 
-<!--
-  Wybór języka przenieś do dedykowanego komponentu.
-obrazki z flagami wyświetlają się prawidłowo jedynie z poziomu IIS, po recznym skopiowaniu folderu assets.
-Obczaj jak to poprowic / webpack?
-Ewentualnie dodaj batcha, ktory bedzie automatycznie robil build i kopiowal pliki do IISa
-https://cli.vuejs.org/guide/html-and-static-assets.html#url-transform-rules
--->
-
-<!-- <img src="flags/flag-english.png"> -->
-<div class="lang" v-for="lang in $ml.list" :key="lang">
-<img :src="flag_file(lang)" @click="$ml.change(lang)" :alt="lang">
-
-<!-- <button
-	@click="$ml.change(lang)"
-	v-text="lang"
-/> -->
-</div>
 
 
   </div>
 </template>
 
 <script>
-import { MLBuilder } from 'vue-multilanguage'
+import { mapState, mapMutations } from "vuex";
 
 export default {
-  name: 'MainMenu',
-  data () {
-  return {
-    baseUrl: process.env.BASE_URL
-  }
-  },
+  name: "MainMenu",
+  computed: mapState(["active_tab"]),
   props: {
     msg: String
   },
   methods: {
-    flag_file(lang) {
-      return "img/flags/flag-"+lang+".png";
+    ...mapMutations(["changeTab"]),
+    is_active_tab(tab) {
+      if (this.active_tab == tab) return { menu_item_active: true };
+      else return { menu_item_inactive: true };
+    },
+    selectTab(tab){
+      if (tab!=this.active_tab) 
+      {
+        this.changeTab(tab);
+        // TO DO: emit an event to load tab content
+      }
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- https://flatuicolors.com/palette/gb -->
 <style scoped>
-
-.mainmenu{
-  color: #182124;
+.mainmenu {
+  float: left;
+  text-align: left;
+  transition: 0.2s;
 }
-img{
-  height: 25px;
-  width: 40px;
-}
+.menu_item {
+  color: #40739e;
+  display: inline-block;
+  border-bottom: 3px solid transparent;
+  border-left: 3px solid transparent;
+  /* background-color: #7f8fa6; */
+  font-weight: 600;
+  text-transform: uppercase;
 
+  padding: 2px 0 8px 8px;
+  margin: 3px 8px 0 0;
+  text-decoration: none;
+}
+.menu_item_inactive:hover {
+  border-bottom: 3px solid #40739e;
+  border-left: 3px solid #40739e;
+  transition: 0.5s;
+}
+.menu_item_active {
+  color: #c23616;
+}
 </style>

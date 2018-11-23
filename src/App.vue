@@ -1,21 +1,22 @@
 <template>
   <div id="app">
-    
+    <language/>
     <main-menu/>
-    <Logon/>
-    <UnreadList/>
+    <!-- <logon/> -->
+    <!-- <unread-list/> -->
   </div>
 </template>
 
 <script>
+import Language from './components/Language.vue'
 import MainMenu from './components/MainMenu.vue'
-import Logon from './components/Logon.vue'
-import UnreadList from './components/UnreadList.vue'
+//import Logon from './components/Logon.vue'
+//import UnreadList from './components/UnreadList.vue'
 
 export default {
   name: 'app',
   components: {
-    MainMenu, Logon, UnreadList
+    Language, MainMenu //, Logon, UnreadList
   }
 }
 </script>
@@ -28,11 +29,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   
-  margin-top: 60px;
+  margin-top: 15px;
 }
-/*
+
 * {
-background-color: #34495e;
+background-color: #f5f6fa;
+transition: 0.5s;
 }
-*/
+
 </style>
