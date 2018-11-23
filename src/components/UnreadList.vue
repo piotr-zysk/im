@@ -2,11 +2,12 @@
   <div class="message_list">
     <div>{{test}}</div>
     
+    unread list
   </div>
 </template>
 
 <script>
-import ImService from '@/../services/ImService'
+import ImService from "@/../services/ImService";
 import { mapState } from "vuex";
 
 export default {
@@ -18,12 +19,12 @@ export default {
     };
   },
   mounted() {
-    this.getGroups()
+    this.getGroups();
   },
   methods: {
     async getGroups() {
       const response = await ImService.authenticate(this.guser.token);
-      this.test=response.data;
+      this.test = response.data;
     }
   }
 };

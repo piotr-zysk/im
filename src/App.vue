@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     
+    <main-menu/>
     <Logon/>
     <UnreadList/>
   </div>

@@ -1,13 +1,24 @@
 <template>
   <div class="mainmenu">
-    <div>Unread</div>
+    <div>{{$ml.get('menu_unread')}}</div>
     <div>Read</div>
     <div>Create</div>
+
+
+<button
+	v-for="lang in $ml.list"
+	:key="lang"
+	@click="$ml.change(lang)"
+	v-text="lang"
+/>
+
 
   </div>
 </template>
 
 <script>
+import { MLBuilder } from 'vue-multilanguage'
+
 export default {
   name: 'MainMenu',
   props: {
@@ -20,7 +31,7 @@ export default {
 <style scoped>
 
 .mainmenu{
-  color: #ecf0f1;
+  color: #182124;
 }
 
 </style>
