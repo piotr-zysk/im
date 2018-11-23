@@ -11,9 +11,10 @@
 obrazki z flagami wyświetlają się prawidłowo jedynie z poziomu IIS, po recznym skopiowaniu folderu assets.
 Obczaj jak to poprowic / webpack?
 Ewentualnie dodaj batcha, ktory bedzie automatycznie robil build i kopiowal pliki do IISa
+https://cli.vuejs.org/guide/html-and-static-assets.html#url-transform-rules
 -->
 
-<img src="assets/flags/flag-english.png">
+<!-- <img src="flags/flag-english.png"> -->
 <div class="lang" v-for="lang in $ml.list" :key="lang">
 <img :src="flag_file(lang)" @click="$ml.change(lang)" :alt="lang">
 
@@ -32,12 +33,17 @@ import { MLBuilder } from 'vue-multilanguage'
 
 export default {
   name: 'MainMenu',
+  data () {
+  return {
+    baseUrl: process.env.BASE_URL
+  }
+  },
   props: {
     msg: String
   },
   methods: {
     flag_file(lang) {
-      return "assets/flags/flag-"+lang+".png";
+      return "img/flags/flag-"+lang+".png";
     }
   }
 }
