@@ -1,8 +1,21 @@
 <template>
   <div class="message_list">
-    <div>{{test}}</div>
-    
-    unread list
+
+<transition appear name="slide-fade">
+<div v-if="this.resultsExist">
+<table>
+  <tr v-for="message in messages" :key="message.id">
+    <td>{{message.priority}}</td>
+    <td><div class="message_title">{{message.title}}</div><div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{message.createdTime}}</div></td>    
+    <td>{{message.expiredTime}}</td>
+  </tr>
+</table>
+</div>>
+</transition>
+TO DO: jesli tytul wiadomosci jest za dlugi to skroc do X znakow i dodaj.. aby miescil sie w jednej linii
+
+{{test}}
+
   </div>
 </template>
 
@@ -12,10 +25,12 @@ import { mapState } from "vuex";
 
 export default {
   name: "UnreadList",
-  computed: mapState(["guser"]),
+  computed: mapState(["guser", "user"]),
   data: function() {
     return {
-      test: "null"
+      test: "null",
+      resultsExist: false,
+      messages: []
     };
   },
   mounted() {
@@ -23,8 +38,16 @@ export default {
   },
   methods: {
     async getGroups() {
-      const response = await ImService.authenticate(this.guser.token);
-      this.test = response.data;
+      try {
+        const response = await ImService.getUnreadMessageList(this.user.token);
+        this.messages = response.data;
+        this.test = response.data;
+
+        this.resultsExist = true;
+      } catch (err) {
+        this.test = err.message;
+        //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
+      }
     }
   }
 };
@@ -32,7 +55,43 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.message_list {
-  color: #333333;
+table {
+  width: 80%;
+  margin: 60px auto;
+  border-collapse: separate;
+  border-spacing: 1px 1px;
+  transition-duration: 1s;
+  transition: 1s;
 }
+td {
+  border-radius: 4px;
+  padding: 3px;
+}
+tr:nth-child(even) td {
+  background-color: #fff;
+}
+tr:nth-child(odd) td {
+  background-color: #dcdde1;
+}
+.message_title {
+ 
+ background-color: inherit;
+}
+.message_author {
+  background-color: inherit;
+  font-size: 80%;
+  text-align: left;
+}
+/*
+.slide-fade-enter-active {
+  transition: all 0.7s ease;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to,
+.slide-fade-leave {
+  transform: translateX(10px);
+  opacity: 0;
+}
+*/
 </style>

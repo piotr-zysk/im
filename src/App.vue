@@ -4,37 +4,47 @@
     <main-menu/>
     <!-- <logon/> -->
     <!-- <unread-list/> -->
+    
+    <component :is="active_tab"></component>
+    
+    
   </div>
 </template>
 
 <script>
-import Language from './components/Language.vue'
-import MainMenu from './components/MainMenu.vue'
+import Language from "./components/Language.vue";
+import MainMenu from "./components/MainMenu.vue";
+import { mapState } from "vuex";
 //import Logon from './components/Logon.vue'
-//import UnreadList from './components/UnreadList.vue'
+import UnreadList from "./components/UnreadList.vue";
+import ReadList from "./components/ReadList.vue";
 
 export default {
-  name: 'app',
+  name: "app",
+  computed: mapState(["active_tab", "tab_locked"]),
   components: {
-    Language, MainMenu //, Logon, UnreadList
+    Language,
+    MainMenu,
+    UnreadList,
+    ReadList //, Logon, UnreadList
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  
+
   margin-top: 15px;
 }
 
 * {
-background-color: #f5f6fa;
-transition: 0.5s;
+  background-color: #f5f6fa;
+  transition: all 1.2s;
 }
 
 </style>
