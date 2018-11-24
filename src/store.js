@@ -19,7 +19,14 @@ export default new Vuex.Store({
       token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9sb2NhbGl0eSI6IjEiLCJuYmYiOjE1NDMwNjA0NDYsImV4cCI6MTU0MzY2NTI0NiwiaWF0IjoxNTQzMDYwNDQ2fQ.VdCwEOCRltv33-BMZgyQIzBu9mm_e1Svzikjc86Pbxc'
     },
     active_tab: '',
-    tab_locked: false
+    tab_locked: false,
+    // data for "Retry" button
+    lastApiCall: {
+      function_name: '',
+      function_params: '',
+      from_tab: ''
+    }
+
   },
   mutations: {
     setGuser (state, guser) {
@@ -34,6 +41,9 @@ export default new Vuex.Store({
     },
     unlockMenu(state) {
       state.tab_locked=false;
+    },
+    saveApiCall(state, call) {
+      state.lastApiCall=call;
     }
 
   },

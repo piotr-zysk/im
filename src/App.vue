@@ -18,6 +18,7 @@ import { mapState } from "vuex";
 //import Logon from './components/Logon.vue'
 import UnreadList from "./components/UnreadList.vue";
 import ReadList from "./components/ReadList.vue";
+import ApiFailedAlert from "./components/ApiFailedAlert.vue";
 
 export default {
   name: "app",
@@ -26,7 +27,8 @@ export default {
     Language,
     MainMenu,
     UnreadList,
-    ReadList //, Logon, UnreadList
+    ReadList,
+    ApiFailedAlert
   }
 };
 </script>

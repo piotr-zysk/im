@@ -12,7 +12,13 @@ export default new MLCreate({
       menu_unread: 'Unread messages',
       menu_read: 'Read messages',
       menu_sent: 'Sent mesages',
-      menu_create: 'New message'
+      menu_create: 'New message',
+      api_failed_alert_title: ':( Server connection error',
+      api_failed_alert_subtitle: 'What to do?',
+      api_failed_alert_button: 'Retry',
+      api_failed_alert_description1: 'retry',
+      api_failed_alert_description2: 'relaunch the application',
+      api_failed_alert_description3: 'ask IT for help',
     }),
 
     new MLanguage('polski').create({
@@ -20,7 +26,13 @@ export default new MLCreate({
       menu_unread: 'Wiadomości nieprzeczytane',
       menu_read: 'Wiadomości przeczytane',
       menu_sent: 'Wiadomości wysłane',
-      menu_create: 'Nowa wiadomość'
+      menu_create: 'Nowa wiadomość',
+      api_failed_alert_title: ':( Nie mogę pobrać danych z serwera',
+      api_failed_alert_subtitle: 'Co zrobić? Jak żyć?',
+      api_failed_alert_button: 'Ponów próbę',
+      api_failed_alert_description1: 'ponów próbę',
+      api_failed_alert_description2: 'zaloguj się ponownie do aplikacji',
+      api_failed_alert_description3: 'skontaktuj się z IT',
     })
   ]
 })

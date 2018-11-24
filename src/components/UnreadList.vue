@@ -21,7 +21,7 @@ TO DO: jesli tytul wiadomosci jest za dlugi to skroc do X znakow i dodaj.. aby m
 
 <script>
 import ImService from "@/../services/ImService";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "UnreadList",
@@ -37,15 +37,20 @@ export default {
     this.getGroups();
   },
   methods: {
+    ...mapMutations(["changeTab","saveApiCall"]),
     async getGroups() {
       try {
+        this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
         const response = await ImService.getUnreadMessageList(this.user.token);
         this.messages = response.data;
         this.test = response.data;
 
         this.resultsExist = true;
       } catch (err) {
-        this.test = err.message;
+        //console.log(fn);
+        //console.log(err);
+        //this.test = err.message;
+        this.changeTab('ApiFailedAlert');
         //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
       }
     }
