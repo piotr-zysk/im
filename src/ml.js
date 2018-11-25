@@ -19,6 +19,8 @@ export default new MLCreate({
       api_failed_alert_description1: 'retry',
       api_failed_alert_description2: 'relaunch the application / make sure your access has not expired',
       api_failed_alert_description3: 'ask IT for help',
+      message_created: 'sent',
+      message_expires: 'expires'
     }),
 
     new MLanguage('polski').create({
@@ -33,6 +35,8 @@ export default new MLCreate({
       api_failed_alert_description1: 'ponów próbę',
       api_failed_alert_description2: 'zaloguj się ponownie do aplikacji / upewnij się że twoje loginy nie wygasły',      
       api_failed_alert_description3: 'skontaktuj się z IT',
+      message_created: 'wysłana',
+      message_expires: 'wygasa'
     })
   ]
 })

@@ -8,7 +8,7 @@
     <td>{{message.priority}}</td>
     <td><div class="message_title">{{message.title | truncate(140)}}
     <i v-if="message.attachment!=null" class="icon ion-md-attach"></i></div>
-    <div class="message_author">{{message.authorFName}} {{message.authorSName}}, sent: {{message.createdTime}}, valid to: {{message.expiredTime}}</div>
+    <div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
     </td>
   </tr>
 </table>
