@@ -12,6 +12,10 @@ Vue.use(VueTruncate)
 
 Vue.config.productionTip = false
 
+Vue.filter('no_empty', function (value, replacement) {
+  if (value.length<1) return replacement;
+  else return value;
+})
 
 
 new Vue({

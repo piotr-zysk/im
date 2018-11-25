@@ -4,12 +4,12 @@
 <transition appear name="slide-fade">
 <div v-if="this.resultsExist">
 <table>
-  <tr v-for="message in messages" :key="message.id">
-    <td>{{message.priority}}</td>
-    <td><div class="message_title">{{message.title | truncate(140)}}
+  <tr v-for="(message, index) in messages" :key="message.id">
+    <td class="row_id" :style="pcolor(message.priority)">{{index+1}}</td>
+    <td><a href=#><div class="message_title">{{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
     <i v-if="message.attachment!=null" class="icon ion-md-attach"></i></div>
     <div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
-    </td>
+    </a></td>
   </tr>
 </table>
 </div>
@@ -24,6 +24,7 @@
 <script>
 import ImService from "@/../services/ImService";
 import IdArray from "@/../services/idarray";
+import Settings from "@/../services/settings";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -40,22 +41,32 @@ export default {
     this.getUnreadMessageList();
   },
   methods: {
-    ...mapMutations(["changeTab", "saveApiCall", "saveMessageList"]),
+    ...mapMutations(["changeTab","saveApiCall","saveMessageList"]),
+    pcolor(x) {
+      return "background-color: "+Settings.getPriorityColor()[x]+";"; //Settings.getPriorityColor()[x];
+    },
     async getUnreadMessageList() {
       try {
-        this.saveApiCall({ from_tab: "ReadList" });
+        //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
+        this.saveApiCall({from_tab: 'ReadList'});
         const response = await ImService.getReadMessageList(this.user.token);
         this.messages = response.data;
         this.saveMessageList(IdArray.getList(this.messages));
 
-        //this.test = response.data;
+        /*
+        var x=IdArray.getList(this.messages);
+        x.forEach(element => {
+          console.log(element + " -> " + IdArray.getNext(x,element))
+        });
+                //this.test = response.data;
+        */
 
         this.resultsExist = true;
       } catch (err) {
         //console.log(fn);
         //console.log(err);
         //this.test = err.message;
-        this.changeTab("ApiFailedAlert");
+        this.changeTab('ApiFailedAlert');
         //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
       }
     }
@@ -87,19 +98,31 @@ tr:nth-child(odd) td {
   background-color: #dcdde1;
 }
 .message_title {
-  font-weight: 600;
-  background-color: inherit;
+ font-weight: 600;
+ background-color: inherit;
 }
 .message_author {
   background-color: inherit;
   font-size: 80%;
   text-align: left;
 }
-i {
+i
+{
   background-color: inherit;
   font-size: 120%;
   float: right;
   padding: 0 5px;
+}
+.row_id {
+  font-size: 80%;
+  font-weight: bold;
+  width: 25px;
+  border-radius: 8px;
+}
+a {
+  text-decoration: none;
+  background-color: inherit;
+  color:inherit;
 }
 /*
 .slide-fade-enter-active {

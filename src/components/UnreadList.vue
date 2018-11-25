@@ -4,12 +4,12 @@
 <transition appear name="slide-fade">
 <div v-if="this.resultsExist">
 <table>
-  <tr v-for="message in messages" :key="message.id">
-    <td>{{message.priority}}</td>
-    <td><div class="message_title">{{message.title | truncate(140)}}
+  <tr v-for="(message, index) in messages" :key="message.id">
+    <td class="row_id" :style="pcolor(message.priority)">{{index+1}}</td>
+    <td><a href=#><div class="message_title">{{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
     <i v-if="message.attachment!=null" class="icon ion-md-attach"></i></div>
     <div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
-    </td>
+    </a></td>
   </tr>
 </table>
 </div>
@@ -24,6 +24,7 @@
 <script>
 import ImService from "@/../services/ImService";
 import IdArray from "@/../services/idarray";
+import Settings from "@/../services/settings";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -41,6 +42,9 @@ export default {
   },
   methods: {
     ...mapMutations(["changeTab","saveApiCall","saveMessageList"]),
+    pcolor(x) {
+      return "background-color: "+Settings.getPriorityColor()[x]+";"; //Settings.getPriorityColor()[x];
+    },
     async getUnreadMessageList() {
       try {
         //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
@@ -108,6 +112,17 @@ i
   font-size: 120%;
   float: right;
   padding: 0 5px;
+}
+.row_id {
+  font-size: 80%;
+  font-weight: bold;
+  width: 25px;
+  border-radius: 8px;
+}
+a {
+  text-decoration: none;
+  background-color: inherit;
+  color:inherit;
 }
 /*
 .slide-fade-enter-active {
