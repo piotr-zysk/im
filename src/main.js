@@ -5,7 +5,8 @@ import GSignInButton from 'vue-google-signin-button'
 import './ml'
 
 Vue.use(GSignInButton)
-
+var VueTruncate = require('vue-truncate-filter')
+Vue.use(VueTruncate)
 
 Vue.config.productionTip = false
 
