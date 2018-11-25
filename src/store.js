@@ -27,7 +27,8 @@ export default new Vuex.Store({
       function_name: '',
       function_params: '',
       from_tab: ''
-    }
+    },
+    messageList: []
 
   },
   mutations: {
@@ -46,6 +47,12 @@ export default new Vuex.Store({
     },
     saveApiCall(state, call) {
       state.lastApiCall=call;
+    },
+    saveMessageList(state, messageList) {
+      state.messageList=messageList;
+    },
+    clearMessageList(state) {
+      state.messageList=[];
     }
 
   },

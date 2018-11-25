@@ -23,6 +23,7 @@
 
 <script>
 import ImService from "@/../services/ImService";
+import IdArray from "@/../services/idarray";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -39,14 +40,16 @@ export default {
     this.getUnreadMessageList();
   },
   methods: {
-    ...mapMutations(["changeTab","saveApiCall"]),
+    ...mapMutations(["changeTab","saveApiCall","saveMessageList"]),
     async getUnreadMessageList() {
       try {
         //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
         this.saveApiCall({from_tab: 'UnreadList'});
         const response = await ImService.getUnreadMessageList(this.user.token);
         this.messages = response.data;
-        this.test = response.data;
+        this.saveMessageList(IdArray.getList(this.messages));
+
+        //this.test = response.data;
 
         this.resultsExist = true;
       } catch (err) {

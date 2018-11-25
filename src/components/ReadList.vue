@@ -6,21 +6,24 @@
 <table>
   <tr v-for="message in messages" :key="message.id">
     <td>{{message.priority}}</td>
-    <td><div class="message_title">{{message.title}}</div><div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{message.createdTime}}</div></td>    
-    <td>{{message.expiredTime}}</td>
+    <td><div class="message_title">{{message.title | truncate(140)}}
+    <i v-if="message.attachment!=null" class="icon ion-md-attach"></i></div>
+    <div class="message_author">{{message.authorFName}} {{message.authorSName}}, sent: {{message.createdTime}}, valid to: {{message.expiredTime}}</div>
+    </td>
   </tr>
 </table>
-</div>>
+</div>
 </transition>
-TO DO: jesli tytul wiadomosci jest za dlugi to skroc do X znakow i dodaj.. aby miescil sie w jednej linii
 
-{{test}}
+
+<!-- {{test}} -->
 
   </div>
 </template>
 
 <script>
 import ImService from "@/../services/ImService";
+import IdArray from "@/../services/idarray";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -37,21 +40,22 @@ export default {
     this.getUnreadMessageList();
   },
   methods: {
-    ...mapMutations(["changeTab","saveApiCall"]),
+    ...mapMutations(["changeTab", "saveApiCall", "saveMessageList"]),
     async getUnreadMessageList() {
       try {
-        //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
-        this.saveApiCall({from_tab: 'UnreadList'});
-        const response = await ImService.getUnreadMessageList(this.user.token);
+        this.saveApiCall({ from_tab: "ReadList" });
+        const response = await ImService.getReadMessageList(this.user.token);
         this.messages = response.data;
-        this.test = response.data;
+        this.saveMessageList(IdArray.getList(this.messages));
+
+        //this.test = response.data;
 
         this.resultsExist = true;
       } catch (err) {
         //console.log(fn);
         //console.log(err);
         //this.test = err.message;
-        this.changeTab('ApiFailedAlert');
+        this.changeTab("ApiFailedAlert");
         //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
       }
     }
@@ -68,10 +72,13 @@ table {
   border-spacing: 1px 1px;
   transition-duration: 1s;
   transition: 1s;
+  color: #353b48ce;
 }
 td {
   border-radius: 4px;
   padding: 3px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 tr:nth-child(even) td {
   background-color: #fff;
@@ -80,13 +87,19 @@ tr:nth-child(odd) td {
   background-color: #dcdde1;
 }
 .message_title {
- 
- background-color: inherit;
+  font-weight: 600;
+  background-color: inherit;
 }
 .message_author {
   background-color: inherit;
   font-size: 80%;
   text-align: left;
+}
+i {
+  background-color: inherit;
+  font-size: 120%;
+  float: right;
+  padding: 0 5px;
 }
 /*
 .slide-fade-enter-active {
