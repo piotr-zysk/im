@@ -1,14 +1,12 @@
 <template>
+<div class="clearfix">
   <div class="mainmenu">
     <a class="menu_item" :class="is_active_tab('UnreadList')" @click="selectTab('UnreadList')" href=#><i class="icon ion-md-mail"></i> {{$ml.get('menu_unread')}}</a>
     <a class="menu_item" :class="is_active_tab('ReadList')" @click="selectTab('ReadList')" href=#><i class="icon ion-md-mail-open"></i> {{$ml.get('menu_read')}}</a>
     <a class="menu_item" :class="is_active_tab('SentList')" @click="selectTab('SentList')" href=#><i class="icon ion-md-paper-plane"></i> {{$ml.get('menu_sent')}}</a>
     <a class="menu_item" :class="is_active_tab('NewMessage')" @click="selectTab('NewMessage')" href=#><i class="icon ion-md-create"></i> {{$ml.get('menu_create')}}</a>
-
-
-
-
   </div>
+</div>
 </template>
 
 <script>
@@ -30,7 +28,7 @@ export default {
     selectTab(tab){
       if (tab!=this.navigation.tab) 
       {
-        this.changeTab(tab);
+        this.changeTab({"tab": tab});
         // TO DO: emit an event to load tab content
       }
     }
@@ -45,7 +43,7 @@ export default {
   float: left;
   text-align: left;
   transition: 0.2s;
-  margin-bottom: 40px;
+  
 }
 .menu_item {
   color: #40739e;
@@ -75,5 +73,13 @@ export default {
 }
 .menu_item_active {
   color: #c23616;
+}
+
+.clearfix:after {
+  content: '.';
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
 }
 </style>

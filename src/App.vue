@@ -18,6 +18,7 @@ import { mapState } from "vuex";
 //import Logon from './components/Logon.vue'
 import UnreadList from "./components/UnreadList.vue";
 import ReadList from "./components/ReadList.vue";
+import ViewMessage from "./components/ViewMessage.vue";
 import ApiFailedAlert from "./components/ApiFailedAlert.vue";
 
 export default {
@@ -28,7 +29,8 @@ export default {
     MainMenu,
     UnreadList,
     ReadList,
-    ApiFailedAlert
+    ApiFailedAlert,
+    ViewMessage
   }
 };
 </script>

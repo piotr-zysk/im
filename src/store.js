@@ -46,8 +46,11 @@ export default new Vuex.Store({
     setGuser(state, guser) {
       state.guser = guser;
     },
-    changeTab(state, tab) {
-      if (!state.tab_locked) state.navigation.tab = tab;
+    changeTab(state, navigation) {
+      if (!state.tab_locked) {
+        //state.navigation.tab = navigation.tab;
+        state.navigation = navigation;
+      }
     },
     // zablokuj menu, np. w przypadku edycji wiadomosci przejscie do innej zakladki bedzie zablokowane dopoki user nie zapisze albo nie anuluje zmian
     lockMenu(state) {

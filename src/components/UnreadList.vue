@@ -6,7 +6,7 @@
 <table>
   <tr v-for="(message, index) in messages" :key="message.id">
     <td class="row_id" :style="pcolor(message.priority)">{{index+1}}</td>
-    <td><a href=# @click="changeTab('ApiFailedAlert')"><div class="message_title">{{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
+    <td><a href=# @click="changeTab({'tab': 'ViewMessage', 'content': {'id': message.id}})"><div class="message_title">{{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
     <i v-if="message.attachment!=null" class="icon ion-md-attach"></i></div>
     <div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
     </a></td>
@@ -66,10 +66,16 @@ export default {
         //console.log(fn);
         //console.log(err);
         //this.test = err.message;
-        this.changeTab('ApiFailedAlert');
+        this.changeTab({"tab": 'ApiFailedAlert'});
         //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
       }
     }
+    /*
+    ,
+    goToMessage(id) {
+
+    }
+    */
   }
 };
 </script>
