@@ -8,7 +8,7 @@ export default new Vuex.Store({
     title: 'My title from VUEX',
     //Google applicaion Cllient ID, required for authentication (client ID created for backend api located in 'intraportal.net')
     googleSignInParams: {
-        client_id: '1055476069803-mudpnjdhi6d7es9tuosavl5sn4nd08ip.apps.googleusercontent.com'
+      client_id: '1055476069803-mudpnjdhi6d7es9tuosavl5sn4nd08ip.apps.googleusercontent.com'
     },
     //Google user - use data fetched from Google after Google authentication
     guser: {
@@ -20,39 +20,50 @@ export default new Vuex.Store({
       ,
       token_bad: '!eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9sb2NhbGl0eSI6IjEiLCJuYmYiOjE1NDMwNjA0NDYsImV4cCI6MTU0MzY2NTI0NiwiaWF0IjoxNTQzMDYwNDQ2fQ.VdCwEOCRltv33-BMZgyQIzBu9mm_e1Svzikjc86Pbxc'
     },
-    active_tab: '',
-    tab_locked: false,
+    navigation: {
+      tab: '',
+      locked: false,
+      content: {
+        id: null
+      },
+      source: {
+        tab: ''
+      }
+    },
     // data for "Retry" button
     lastApiCall: {
       function_name: '',
       function_params: '',
       from_tab: ''
     },
+    dbcache: {
+      users: []
+    },
     messageList: []
 
   },
   mutations: {
-    setGuser (state, guser) {
-      state.guser=guser;
+    setGuser(state, guser) {
+      state.guser = guser;
     },
-    changeTab (state, tab) {
-      if (!state.tab_locked) state.active_tab=tab;
+    changeTab(state, tab) {
+      if (!state.tab_locked) state.navigation.tab = tab;
     },
     // zablokuj menu, np. w przypadku edycji wiadomosci przejscie do innej zakladki bedzie zablokowane dopoki user nie zapisze albo nie anuluje zmian
     lockMenu(state) {
-      state.tab_locked=true;
+      state.tab_locked = true;
     },
     unlockMenu(state) {
-      state.tab_locked=false;
+      state.tab_locked = false;
     },
     saveApiCall(state, call) {
-      state.lastApiCall=call;
+      state.lastApiCall = call;
     },
     saveMessageList(state, messageList) {
-      state.messageList=messageList;
+      state.messageList = messageList;
     },
     clearMessageList(state) {
-      state.messageList=[];
+      state.messageList = [];
     }
 
   },

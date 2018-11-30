@@ -30,10 +30,10 @@ export default {
     ...mapMutations(["changeTab"]),
     Retry()
     {
-      this.changeTab(this.active_tab);
+      this.changeTab(this.navigation.tab);
     }
   },
-  computed: mapState(["lastApiCall","active_tab"]),
+  computed: mapState(["lastApiCall","navigation"]),
   data: function() {
     return {
       test: "null"

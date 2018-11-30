@@ -16,19 +16,19 @@ import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "MainMenu",
-  computed: mapState(["active_tab","tab_locked"]),
+  computed: mapState(["navigation","tab_locked"]),
   props: {
     msg: String
   },
   methods: {
     ...mapMutations(["changeTab"]),
     is_active_tab(tab) {
-      if (this.active_tab == tab) return { menu_item_active: true };
+      if (this.navigation.tab == tab) return { menu_item_active: true };
       else if (this.tab_locked) return { menu_item_locked: true };
       else return { menu_item_inactive: true };
     },
     selectTab(tab){
-      if (tab!=this.active_tab) 
+      if (tab!=this.navigation.tab) 
       {
         this.changeTab(tab);
         // TO DO: emit an event to load tab content

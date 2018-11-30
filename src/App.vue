@@ -5,7 +5,7 @@
     <!-- <logon/> -->
     <!-- <unread-list/> -->
     
-    <component :is="active_tab"></component>
+    <component :is="navigation.tab"></component>
     
     
   </div>
@@ -22,7 +22,7 @@ import ApiFailedAlert from "./components/ApiFailedAlert.vue";
 
 export default {
   name: "app",
-  computed: mapState(["active_tab", "tab_locked"]),
+  computed: mapState(["navigation", "tab_locked"]),
   components: {
     Language,
     MainMenu,

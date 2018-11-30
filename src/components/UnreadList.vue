@@ -6,7 +6,7 @@
 <table>
   <tr v-for="(message, index) in messages" :key="message.id">
     <td class="row_id" :style="pcolor(message.priority)">{{index+1}}</td>
-    <td><a href=#><div class="message_title">{{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
+    <td><a href=# @click="changeTab('ApiFailedAlert')"><div class="message_title">{{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
     <i v-if="message.attachment!=null" class="icon ion-md-attach"></i></div>
     <div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
     </a></td>
@@ -29,7 +29,7 @@ import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "UnreadList",
-  computed: mapState(["guser", "user"]),
+  computed: mapState(["guser", "user", "navigation"]),
   data: function() {
     return {
       test: "null",
