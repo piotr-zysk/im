@@ -58,11 +58,13 @@ img {
 .lang_other {
   height: 17px;
   width: 22px;
+  opacity: 0.7;
 }
 .lang_other:hover {
   height: 21px;
   width: 26px;
   margin: 0px 3px;
   box-shadow: 0 3px 3px #aaa;
+  opacity: 1;
 }
 </style>
