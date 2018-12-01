@@ -1,13 +1,16 @@
 <template>
- <div>
-
-
-<!-- <img src="flags/flag-english.png"> -->
-<div v-for="lang in $ml.list" :key="lang">
-<img class="language" :class="chosen_language(lang)" :src="flag_file(lang)" @click="$ml.change(lang); language=lang;" :alt="lang">
-</div>
-
-</div>
+  <div>
+    <!-- <img src="flags/flag-english.png"> -->
+    <div v-for="lang in $ml.list" :key="lang">
+      <img
+        class="language"
+        :class="chosen_language(lang)"
+        :src="flag_file(lang)"
+        @click="$ml.change(lang); language=lang;"
+        :alt="lang"
+      >
+    </div>
+  </div>
 </template>
 
 <script>
@@ -27,10 +30,8 @@ export default {
       return "img/flags/flag-" + lang + ".png";
     },
     chosen_language(lang) {
-      if (this.language == lang)
-       return {lang_active: true};
-      else
-       return {lang_other: true};
+      if (this.language == lang) return { lang_active: true };
+      else return { lang_other: true };
     }
   }
 };
@@ -41,17 +42,18 @@ export default {
 img {
   margin: 0px;
   border: 1px solid #000;
-  transition:0.3s
+  transition: 0.3s;
 }
 .language {
   padding: 0px;
   display: block;
   float: right;
-  margin: 0px 5px;  
+  margin: 0px 5px;
 }
 .lang_active {
   height: 27px;
   width: 37px;
+  box-shadow: 0 3px 3px #aaa;
 }
 .lang_other {
   height: 17px;
@@ -61,6 +63,6 @@ img {
   height: 21px;
   width: 26px;
   margin: 0px 3px;
+  box-shadow: 0 3px 3px #aaa;
 }
-
 </style>

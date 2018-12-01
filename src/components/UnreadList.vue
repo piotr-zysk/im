@@ -123,12 +123,19 @@ i
   font-size: 80%;
   font-weight: bold;
   width: 25px;
-  border-radius: 8px;
+  border-radius: 3px;
 }
 a {
   text-decoration: none;
   background-color: inherit;
   color:inherit;
+}
+table {
+  Box-shadow: 0 5px 10px #ccc;
+  transition: 0.5s;
+}
+table:hover {
+  Box-shadow: 0 5px 20px #999;
 }
 /*
 .slide-fade-enter-active {
