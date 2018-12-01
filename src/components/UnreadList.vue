@@ -84,7 +84,7 @@ export default {
 <style scoped>
 table {
   width: 80%;
-  margin: 60px auto;
+  margin: 50px auto 20px auto;
   border-collapse: separate;
   border-spacing: 1px 1px;
   transition-duration: 1s;
@@ -132,10 +132,10 @@ a {
 }
 table {
   Box-shadow: 0 5px 10px #ccc;
-  transition: 0.5s;
+  transition: 0.7s;
 }
 table:hover {
-  Box-shadow: 0 5px 20px #999;
+  Box-shadow: 0 5px 20px #aaa;
 }
 /*
 .slide-fade-enter-active {

@@ -7,7 +7,8 @@
     
     <component :is="navigation.tab"></component>
     
-    
+   <Footer/>
+      
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import UnreadList from "./components/UnreadList.vue";
 import ReadList from "./components/ReadList.vue";
 import ViewMessage from "./components/ViewMessage.vue";
 import ApiFailedAlert from "./components/ApiFailedAlert.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "app",
@@ -30,7 +32,8 @@ export default {
     UnreadList,
     ReadList,
     ApiFailedAlert,
-    ViewMessage
+    ViewMessage,
+    Footer
   }
 };
 </script>
@@ -50,5 +53,6 @@ export default {
   background-color: #f5f6fa;
   transition: all 1.2s;
 }
+
 
 </style>
