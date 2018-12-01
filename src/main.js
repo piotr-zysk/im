@@ -3,12 +3,17 @@ import App from './App.vue'
 import store from './store'
 import GSignInButton from 'vue-google-signin-button'
 import './ml'
-
+import VueProgressBar from 'vue-progressbar'
 
 Vue.use(GSignInButton)
 var VueTruncate = require('vue-truncate-filter')
 Vue.use(VueTruncate)
 
+Vue.use(VueProgressBar, {
+  color: 'rgb(64, 115, 158)',
+  failedColor: 'red',
+  height: '2px'
+})
 
 Vue.config.productionTip = false
 

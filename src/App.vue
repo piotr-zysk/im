@@ -2,13 +2,9 @@
   <div id="app">
     <language/>
     <main-menu/>
-    <!-- <logon/> -->
-    <!-- <unread-list/> -->
-    
     <component :is="navigation.tab"></component>
-    
-   <Footer/>
-      
+    <Footer/>
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 
@@ -53,6 +49,4 @@ export default {
   background-color: #f5f6fa;
   transition: all 1.2s;
 }
-
-
 </style>

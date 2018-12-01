@@ -47,6 +47,7 @@ export default {
     },
     async getUnreadMessageList() {
       try {
+        this.$Progress.start();
         //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
         this.saveApiCall({from_tab: 'UnreadList'});
         const response = await ImService.getUnreadMessageList(this.user.token);
@@ -62,12 +63,14 @@ export default {
         */
 
         this.resultsExist = true;
+        this.$Progress.finish();
       } catch (err) {
         //console.log(fn);
         //console.log(err);
         //this.test = err.message;
         this.changeTab({"tab": 'ApiFailedAlert'});
         //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
+        this.$Progress.fail();
       }
     }
     /*
