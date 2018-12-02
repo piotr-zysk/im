@@ -44,7 +44,7 @@ export default new MLCreate({
       api_failed_alert_description2: 'zaloguj się ponownie do aplikacji / upewnij się, że twoje loginy nie wygasły',
       api_failed_alert_description3: 'skontaktuj się z IT',
       message_created: 'wysłana',
-      message_expires: 'wygasa',
+      message_expires: 'ważna do',
       no_title: 'wiadomość bez tytułu',
       reply: 'odpowiedz',
       reply_all: 'odpowiedz wszystkim',
