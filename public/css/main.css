@@ -10,3 +10,21 @@
     font-weight: bold;
     color: #fff;
 }
+
+/* ----------------------------- */
+/* VewMessage */
+/* ----------------------------- */
+
+.message_content {
+    font-size: 70%;
+    border: 1px solid #ccc;
+    box-shadow: 0 5px 20px #ccc;
+    margin: 30px;
+    padding: 10px;
+   /* background-color: #fff;*/
+  }
+
+.message_content font table {
+    background-color: inherit;
+}
+  

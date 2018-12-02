@@ -23,14 +23,12 @@ export default {
     authenticate(google_token) {
         return Api().post('/googleauth/authenticate', '', this.token_config(google_token))
     },
-    getUnreadMessageList(token) {
-        return Api().get('/message/list/unread', this.token_config(token))
+    getMessageList(token, type) {
+        return Api().get('/message/list/' + type, this.token_config(token))
+        // type= [read/unread]
     },
-    getReadMessageList(token) {
-        return Api().get('/message/list/read', this.token_config(token))
-    },
-    getMessage(token,id) {
-        return Api().get('/message/get/'+id, this.token_config(token))
+    getMessage(token, id) {
+        return Api().get('/message/get/' + id, this.token_config(token))
     }
 
 }

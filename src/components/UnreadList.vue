@@ -1,155 +1,16 @@
 <template>
-  <div class="message_list">
+  <MessageList type="unread"></MessageList>
 
-<transition appear name="slide-fade">
-<div v-if="this.resultsExist">
-<table>
-  <tr v-for="(message, index) in messages" :key="message.id">
-    <td class="row_id" :style="pcolor(message.priority)">{{index+1}}</td>
-    <td><a href=# @click="changeTab({'tab': 'ViewMessage', 'content': {'id': message.id}})"><div class="message_title">{{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
-    <i v-if="message.attachment!=null" class="icon ion-md-attach"></i></div>
-    <div class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
-    </a></td>
-  </tr>
-</table>
-</div>
-</transition>
-
-
-<!-- {{test}} -->
-
-  </div>
 </template>
 
 <script>
-import ImService from "@/../services/ImService";
-import IdArray from "@/../services/idarray";
-import Settings from "@/../services/settings";
-import { mapState, mapMutations } from "vuex";
+import MessageList from "../components/MessageList.vue";
 
 export default {
   name: "UnreadList",
-  computed: mapState(["guser", "user", "navigation"]),
-  data: function() {
-    return {
-      test: "null",
-      resultsExist: false,
-      messages: []
-    };
-  },
-  mounted() {
-    this.getUnreadMessageList();
-  },
-  methods: {
-    ...mapMutations(["changeTab","saveApiCall","saveMessageList"]),
-    pcolor(x) {
-      return "background-color: "+Settings.getPriorityColor()[x]+";"; //Settings.getPriorityColor()[x];
-    },
-    async getUnreadMessageList() {
-      try {
-        this.$Progress.start();
-        //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
-        //this.saveApiCall({from_tab: 'UnreadList'});
-        const response = await ImService.getUnreadMessageList(this.user.token);
-        this.messages = response.data;
-        this.saveMessageList(IdArray.getList(this.messages));
-
-        /*
-        var x=IdArray.getList(this.messages);
-        x.forEach(element => {
-          console.log(element + " -> " + IdArray.getNext(x,element))
-        });
-                //this.test = response.data;
-        */
-
-        this.resultsExist = true;
-        this.$Progress.finish();
-      } catch (err) {
-        //console.log(fn);
-        //console.log(err);
-        //this.test = err.message;
-        this.changeTab({"tab": 'ApiFailedAlert', "source": {"tab": "UnreadList"}});
-        //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
-        this.$Progress.fail();
-      }
-    }
-    /*
-    ,
-    goToMessage(id) {
-
-    }
-    */
+  components: {
+    MessageList
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-table {
-  width: 80%;
-  margin: 50px auto 20px auto;
-  border-collapse: separate;
-  border-spacing: 1px 1px;
-  transition-duration: 1s;
-  transition: 1s;
-  color: #353b48ce;
-}
-td {
-  border-radius: 4px;
-  padding: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-}
-tr:nth-child(even) td {
-  background-color: #fff;
-}
-tr:nth-child(odd) td {
-  background-color: #dcdde1;
-}
-.message_title {
- font-weight: 600;
- background-color: inherit;
-}
-.message_author {
-  background-color: inherit;
-  font-size: 80%;
-  text-align: left;
-}
-i
-{
-  background-color: inherit;
-  font-size: 120%;
-  float: right;
-  padding: 0 5px;
-}
-.row_id {
-  font-size: 80%;
-  font-weight: bold;
-  width: 25px;
-  border-radius: 3px;
-}
-a {
-  text-decoration: none;
-  background-color: inherit;
-  color:inherit;
-}
-table {
-  Box-shadow: 0 5px 10px #ccc;
-  transition: 0.7s;
-}
-table:hover {
-  Box-shadow: 0 5px 20px #aaa;
-}
-/*
-.slide-fade-enter-active {
-  transition: all 0.7s ease;
-}
-
-.slide-fade-enter,
-.slide-fade-leave-to,
-.slide-fade-leave {
-  transform: translateX(10px);
-  opacity: 0;
-}
-*/
-</style>
