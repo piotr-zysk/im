@@ -34,7 +34,7 @@ export default new Vuex.Store({
     lastApiCall: {
       function_name: '',
       function_params: '',
-      from_tab: ''
+      //from_tab: ''  - dubel z navigationsource.tab
     },
     dbcache: {
       users: []

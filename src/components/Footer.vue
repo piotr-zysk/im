@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="footer">&copy; 2018 Piotr Zyśk @transcom.com</p>
+    <p class="footer">Intranet Messenger 2.0, &copy; 2018 Piotr Zyśk @transcom.com</p>
   </div>
 </template>
 

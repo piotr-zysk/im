@@ -3,7 +3,7 @@
 
 <transition appear name="slide-fade">
 
-<p>duparerer</p>
+<p>duparerer {{this.navigation.content.id}}</p>
 
 </transition>
 
@@ -21,7 +21,7 @@ import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "ViewMessage",
-  computed: mapState(["guser", "user", "navigation"]),
+  computed: mapState(["user", "navigation"]),
   data: function() {
     return {
       test: "null",
