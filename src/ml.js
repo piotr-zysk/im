@@ -21,7 +21,12 @@ export default new MLCreate({
       api_failed_alert_description3: 'ask IT for help',
       message_created: 'sent',
       message_expires: 'expires',
-      no_title: 'no title'
+      no_title: 'no title',
+      reply: 'reply',
+      reply_all: 'reply to all',
+      zoom_in: 'zoom in',
+      zoom_out: 'zoom out',
+      next_message: 'next message'
     }),
 
     new MLanguage('polski').create({
@@ -38,7 +43,12 @@ export default new MLCreate({
       api_failed_alert_description3: 'skontaktuj się z IT',
       message_created: 'wysłana',
       message_expires: 'wygasa',
-      no_title: 'wiadomość bez tytułu'
+      no_title: 'wiadomość bez tytułu',
+      reply: 'odpowiedz',
+      reply_all: 'odpowiedz wszystkim',
+      zoom_in: 'powiększ',
+      zoom_out: 'pomniejsz',
+      next_message: 'nast. wiadomość'
     })
   ]
 })
