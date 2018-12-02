@@ -28,6 +28,9 @@ export default {
     },
     getReadMessageList(token) {
         return Api().get('/message/list/read', this.token_config(token))
+    },
+    getMessage(token,id) {
+        return Api().get('/message/get/'+id, this.token_config(token))
     }
 
 }

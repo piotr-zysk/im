@@ -31,11 +31,12 @@ export default new Vuex.Store({
       }
     },
     // data for "Retry" button
+    /*
     lastApiCall: {
       function_name: '',
       function_params: '',
-      //from_tab: ''  - dubel z navigationsource.tab
-    },
+      from_tab: ''  - dubel z navigationsource.tab
+    }, */
     dbcache: {
       users: []
     },

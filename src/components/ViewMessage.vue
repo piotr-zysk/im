@@ -1,15 +1,10 @@
 <template>
   <div class="message_view">
-
-<transition appear name="slide-fade">
-
-<p>duparerer {{this.navigation.content.id}}</p>
-
-</transition>
-
-
-rererere
-
+    <transition appear name="slide-fade">
+      <div>
+        <div class="message_content" v-html="this.message.content"></div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -26,25 +21,33 @@ export default {
     return {
       test: "null",
       resultsExist: false,
-      messages: []
+      message: ""
     };
   },
-  /*
   mounted() {
-    this.getUnreadMessageList();
+    this.getMessage();
   },
-  */
   methods: {
-    ...mapMutations(["changeTab","saveApiCall"]),
-    async getUnreadMessageList() {
+    ...mapMutations(["changeTab", "saveApiCall"]),
+    async getMessage() {
       try {
-        this.saveApiCall({from_tab: 'UnreadList'});
-        const response = await ImService.getUnreadMessageList(this.user.token);
-        this.messages = response.data;
-       //this.saveMessageList(IdArray.getList(this.messages));
+        this.$Progress.start();
+        const response = await ImService.getMessage(
+          this.user.token,
+          this.navigation.content.id
+        );
+        this.message = response.data;
+        //this.saveMessageList(IdArray.getList(this.messages));
         this.resultsExist = true;
+        console.log(this.message);
+        this.$Progress.finish();
       } catch (err) {
-        this.changeTab('ApiFailedAlert');
+        this.changeTab({
+          "tab": "ApiFailedAlert",
+          "source": {"tab": "ViewMessage" },
+          "content": {"id": this.navigation.content.id}
+        });
+        this.$Progress.fail();
       }
     }
   }
@@ -53,4 +56,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.message_content {
+  font-size: 70%;
+  border: 1px solid #ccc;
+  box-shadow: 0 5px 20px #ccc;
+  margin: 30px;
+  padding: 10px;
+}
+
+.message_content table {
+  background-color: #fff;
+  border: 1px solid #aaa;
+}
 </style>

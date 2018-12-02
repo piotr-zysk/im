@@ -30,7 +30,9 @@ export default {
     ...mapMutations(["changeTab"]),
     Retry()
     {
-      this.changeTab({"tab": this.navigation.source.tab});
+      this.changeTab({"tab": this.navigation.source.tab,
+          "source": {"tab": "ViewMessage" },
+          "content": {"id": this.navigation.content.id}});
     }
   },
   computed: mapState(["lastApiCall","navigation"]),
