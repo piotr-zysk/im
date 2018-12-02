@@ -26,7 +26,9 @@ export default new MLCreate({
       reply_all: 'reply to all',
       zoom_in: 'zoom in',
       zoom_out: 'zoom out',
-      next_message: 'next message'
+      next_message: 'next message',
+      from: 'from',
+      to: 'to'
     }),
 
     new MLanguage('polski').create({
@@ -48,7 +50,9 @@ export default new MLCreate({
       reply_all: 'odpowiedz wszystkim',
       zoom_in: 'powiększ',
       zoom_out: 'pomniejsz',
-      next_message: 'nast. wiadomość'
+      next_message: 'nast. wiadomość',
+      from: 'od',
+      to: 'do'
     })
   ]
 })

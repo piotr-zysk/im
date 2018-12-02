@@ -18,7 +18,7 @@ Vue.use(VueProgressBar, {
 Vue.config.productionTip = false
 
 Vue.filter('no_empty', function (value, replacement) {
-  if (value.length<1) return replacement;
+  if ((value!=undefined) && (value.length<1)) return replacement;
   else return value;
 })
 
