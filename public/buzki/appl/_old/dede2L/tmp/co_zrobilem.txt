@@ -1,0 +1,3 @@
+03.01	Modu³ dewuiwu - wykresy DWiW z historia aktywacji pakietów.
+20.12	Szkolenie z Diall-up technicznego
+07.12	Modyfikacja aplikacji intranetowej do aktywacji pakietow - sprawdzanie poprawnosci wpisywanych przez agentow danych

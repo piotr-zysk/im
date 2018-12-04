@@ -27,6 +27,7 @@ export default new MLCreate({
       zoom_in: 'zoom in',
       zoom_out: 'zoom out',
       next_message: 'next message',
+      del_message: 'delete',
       from: 'from',
       to: 'to'
     }),
@@ -47,10 +48,11 @@ export default new MLCreate({
       message_expires: 'ważna do',
       no_title: 'wiadomość bez tytułu',
       reply: 'odpowiedz',
-      reply_all: 'odpowiedz wszystkim',
+      reply_all: 'odp. wszystkim',
       zoom_in: 'powiększ',
       zoom_out: 'pomniejsz',
       next_message: 'nast. wiadomość',
+      del_message: 'skasuj',
       from: 'od',
       to: 'do'
     })

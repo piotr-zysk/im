@@ -9,7 +9,7 @@
           </a>
           <a href="#">
             <i class="fas fa-reply-all"></i>
-            <p>{{$ml.get('reply')}}</p>
+            <p>{{$ml.get('reply_all')}}</p>
           </a>
           <!--
           <a href="#">
@@ -21,6 +21,10 @@
             <p>{{$ml.get('zoom_out')}}</p>
           </a>
           -->
+          <a href="#">
+            <i class="fas fa-trash"></i>
+            <p>{{$ml.get('del_message')}}</p>
+          </a>
           <a href="#" v-show="nextMessageId!=-1" @click="getNextMessage()">
             <i class="fas fa-angle-double-right"></i>
             <p>{{$ml.get('next_message')}}</p>
@@ -153,6 +157,7 @@ h2 {
   margin: 0 20px;  
   padding: 5px;
   background-color: #fff;
+  color: #666;
 }
 
 .message_properties p {
