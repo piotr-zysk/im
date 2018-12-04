@@ -28,6 +28,7 @@ export default new MLCreate({
       zoom_out: 'zoom out',
       next_message: 'next message',
       del_message: 'delete',
+      withdraw_message: 'withdraw',
       from: 'from',
       to: 'to'
     }),
@@ -53,6 +54,7 @@ export default new MLCreate({
       zoom_out: 'pomniejsz',
       next_message: 'nast. wiadomość',
       del_message: 'skasuj',
+      withdraw_message: 'wycofaj',
       from: 'od',
       to: 'do'
     })

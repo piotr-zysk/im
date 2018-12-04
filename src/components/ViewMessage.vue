@@ -21,11 +21,15 @@
             <p>{{$ml.get('zoom_out')}}</p>
           </a>
           -->
-          <a href="#">
+          <a href="#" v-if="this.navigation.content.message_status=='sent'">
+            <i class="fas fa-eraser"></i>
+            <p>{{$ml.get('withdraw_message')}}</p>
+          </a>
+          <a href="#" v-if="this.navigation.content.message_status!='sent'">
             <i class="fas fa-trash"></i>
             <p>{{$ml.get('del_message')}}</p>
           </a>
-          <a href="#" v-show="nextMessageId!=-1" @click="getNextMessage()">
+          <a href="#" v-if="nextMessageId!=-1" @click="getNextMessage()">
             <i class="fas fa-angle-double-right"></i>
             <p>{{$ml.get('next_message')}}</p>
           </a>
@@ -51,6 +55,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "ViewMessage",
   computed: mapState(["user", "navigation", "messageList"]),
+  props: ["type"],
   data: function() {
     return {
       test: "null",

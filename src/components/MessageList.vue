@@ -6,7 +6,7 @@
           <tr v-for="(message, index) in messages" :key="message.id">
             <td class="row_id" :style="pcolor(message.priority)">{{index+1}}</td>
             <td>
-              <a href="#" @click="changeTab({'tab': 'ViewMessage', 'content': {'id': message.id}})">
+              <a href="#" @click="changeTab({'tab': 'ViewMessage', 'content': {'id': message.id, 'message_status': type}})">
                 <div class="message_title">
                   {{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
                   <i
@@ -14,9 +14,8 @@
                     class="icon ion-md-attach"
                   ></i>
                 </div>
-                <div
-                  class="message_author"
-                >{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
+                <div v-if="type!='sent'" class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
+                <div v-else class="message_author">{{$ml.get('message_created')}}: {{message.createdTime}} {{$ml.get('to')}}: {{message.recipients | truncate(100)}}</div>
               </a>
             </td>
           </tr>
@@ -37,7 +36,14 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "MessageList",
   props: ["type"],
-  computed: mapState(["guser", "user", "navigation"]),
+  computed: {
+    ...mapState(["guser", "user", "navigation"]),
+    getSource: function() {
+      if(this.type=='sent') return 'SentList';
+      else if(this.type=='unread') return 'UnreadList';
+      else return 'ReadList';
+    }
+  },
   data: function() {
     return {
       test: "null",
@@ -46,14 +52,14 @@ export default {
     };
   },
   mounted() {
-    this.getUnreadMessageList();
+    this.getMessageList();
   },
   methods: {
     ...mapMutations(["changeTab", "saveApiCall", "saveMessageList"]),
     pcolor(x) {
       return "background-color: " + Settings.getPriorityColor()[x] + ";"; //Settings.getPriorityColor()[x];
     },
-    async getUnreadMessageList() {
+    async getMessageList() {
       try {
         this.$Progress.start();
         //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
@@ -79,9 +85,10 @@ export default {
         //console.log(fn);
         //console.log(err);
         //this.test = err.message;
+        
         this.changeTab({
           tab: "ApiFailedAlert",
-          source: { tab: "UnreadList" }
+          source: { tab: this.getSource }
         });
         //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
         this.$Progress.fail();
