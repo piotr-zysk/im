@@ -51,7 +51,7 @@ export default {
         this.resultsExist = true;
         this.$Progress.finish();
       } catch (err) {
-        console.log(err);
+        //console.log(err);
         this.changeTab({
           tab: "ApiFailedAlert",
           source: { tab: this.getSource }

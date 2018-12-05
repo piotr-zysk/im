@@ -42,7 +42,7 @@
         <h2>{{this.message.title}}</h2>
         <div class="message_properties">
           <p>{{$ml.get('from')}}: {{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</p>
-          <p>{{$ml.get('to')}}: {{message.recipients | truncate(100)}}</p>
+          <p>{{$ml.get('to')}}: {{getRecipientNames(message.recipients,10) | truncate(150)}}</p>
         </div>
         <div class="message_content" v-html="this.message.content"></div>
       </div>
@@ -53,12 +53,13 @@
 <script>
 import ImService from "@/../services/ImService";
 import IdArray from "@/../services/idarray";
+import Dbcache from "@/../services/dbcache";
 //import Settings from "@/../services/settings";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "ViewMessage",
-  computed: mapState(["user", "navigation", "messageList"]),
+  computed: mapState(["user", "navigation", "messageList","dbcache"]),
   props: ["type"],
   data: function() {
     return {
@@ -74,6 +75,22 @@ export default {
   },
   methods: {
     ...mapMutations(["changeTab", "saveApiCall"]),
+     getRecipientNames(idstring,limit=0) {
+      //limit 0 = no limit (better to limit number of users to translate form ID to username, for performance reason)
+      if (limit==0) limit=10000;
+      let output='';
+      let count=0;
+      let ids=idstring.toString().split(",");
+      ids.forEach(element => {
+        if ((element!=2509)&&(count<limit)) //2509 = 'messenger admin' account
+        {
+        count++;
+        if (output!='') output+=', ';
+        output+=Dbcache.getUserName(this.dbcache.users,element)
+        }});
+        if (output=='') output=' ';
+        return output;
+    },
     getNextMessageId() {
       return IdArray.getNext(this.messageList, this.navigation.content.id);
     },
@@ -107,16 +124,16 @@ export default {
             this.user.token,
             this.navigation.content.id
           );
-        console.log(response);
+        //console.log(response);
         if (response.data) this.message = response.data;
         else this.message = { recipients: "" };
 
         //this.saveMessageList(IdArray.getList(this.messages));
         this.resultsExist = true;
-        console.log(this.message);
+        //console.log(this.message);
         this.$Progress.finish();
       } catch (err) {
-        console.log(err);
+        //console.log(err);
         this.changeTab({
           tab: "ApiFailedAlert",
           source: { tab: "ViewMessage" },
@@ -127,7 +144,7 @@ export default {
     },
     getNextMessage() {
       if (this.nextMessageId == -1) {
-        console.log("nie ma wiecej wiadomości");
+        //console.log("nie ma wiecej wiadomości");
       } else {
         this.changeTab({ content: { id: this.nextMessageId } });
         this.getMessage(0);

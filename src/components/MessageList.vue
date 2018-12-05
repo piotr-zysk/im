@@ -6,7 +6,10 @@
           <tr v-for="(message, index) in messages" :key="message.id">
             <td class="row_id" :style="pcolor(message.priority)">{{index+1}}</td>
             <td>
-              <a href="#" @click="changeTab({'tab': 'ViewMessage', 'content': {'id': message.id, 'message_status': type}})">
+              <a
+                href="#"
+                @click="changeTab({'tab': 'ViewMessage', 'content': {'id': message.id, 'message_status': type}})"
+              >
                 <div class="message_title">
                   {{message.title | truncate(140) | no_empty('['+$ml.get('no_title')+']')}}
                   <i
@@ -14,8 +17,14 @@
                     class="icon ion-md-attach"
                   ></i>
                 </div>
-                <div v-if="type!='sent'" class="message_author">{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
-                <div v-else class="message_author">{{$ml.get('message_created')}}: {{message.createdTime}} {{$ml.get('to')}}: {{message.recipients | truncate(100)}}</div>
+                <div
+                  v-if="type!='sent'"
+                  class="message_author"
+                >{{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</div>
+                <div
+                  v-else
+                  class="message_author"
+                >{{$ml.get('message_created')}}: {{message.createdTime}} {{$ml.get('to')}}: {{getRecipientNames(message.recipients,10) | truncate(100)}}</div>
               </a>
             </td>
           </tr>
@@ -30,6 +39,7 @@
 <script>
 import ImService from "@/../services/ImService";
 import IdArray from "@/../services/idarray";
+import Dbcache from "@/../services/dbcache";
 import Settings from "@/../services/settings";
 import { mapState, mapMutations } from "vuex";
 
@@ -37,7 +47,7 @@ export default {
   name: "MessageList",
   props: ["type"],
   computed: {
-    ...mapState(["guser", "user", "navigation"]),
+    ...mapState(["guser", "user", "navigation","dbcache"]),
     getSource: function() {
       if(this.type=='sent') return 'SentList';
       else if(this.type=='unread') return 'UnreadList';
@@ -56,6 +66,22 @@ export default {
   },
   methods: {
     ...mapMutations(["changeTab", "saveApiCall", "saveMessageList"]),
+  getRecipientNames(idstring,limit=0) {
+      //limit 0 = no limit (better to limit number of users to translate form ID to username, for performance reason)
+      if (limit==0) limit=10000;
+      let output='';
+      let count=0;
+      let ids=idstring.toString().split(",");
+      ids.forEach(element => {
+        if ((element!=2509)&&(count<limit)) //2509 = 'messenger admin' account
+        {
+        count++;
+        if (output!='') output+=', ';
+        output+=Dbcache.getUserName(this.dbcache.users,element)
+        }});
+        if (output=='') output=' ';
+        return output;
+    },
     pcolor(x) {
       return "background-color: " + Settings.getPriorityColor()[x] + ";"; //Settings.getPriorityColor()[x];
     },
