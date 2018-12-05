@@ -1,5 +1,5 @@
 <template>
-  <div class="message_view">
+  <div class="message_view" v-if="(this.message.recipients!='')&&(this.message.recipients!=null)">
     <transition appear name="slide-fade">
       <div>
         <div class="message_menu">
@@ -21,13 +21,17 @@
             <p>{{$ml.get('zoom_out')}}</p>
           </a>
           -->
-          <a href="#" v-if="this.navigation.content.message_status=='sent'">
+          <a href="#" v-if="this.navigation.content.message_status=='sent'" @click="deleteMessageGoNext()">
             <i class="fas fa-eraser"></i>
             <p>{{$ml.get('withdraw_message')}}</p>
           </a>
-          <a href="#" v-if="this.navigation.content.message_status!='sent'">
+          <a href="#" v-if="this.navigation.content.message_status!='sent'" @click="deleteMessageGoNext()">
             <i class="fas fa-trash"></i>
             <p>{{$ml.get('del_message')}}</p>
+          </a>
+          <a href="#" v-if="previousMessageId!=-1" @click="getPreviousMessage()">
+            <i class="fas fa-angle-double-left"></i>
+            <p>{{$ml.get('prev_message')}}</p>
           </a>
           <a href="#" v-if="nextMessageId!=-1" @click="getNextMessage()">
             <i class="fas fa-angle-double-right"></i>
@@ -37,8 +41,8 @@
 
         <h2>{{this.message.title}}</h2>
         <div class="message_properties">
-        <p>{{$ml.get('from')}}: {{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</p>
-        <p>{{$ml.get('to')}}: {{message.recipients | truncate(100)}}</p>
+          <p>{{$ml.get('from')}}: {{message.authorFName}} {{message.authorSName}}, {{$ml.get('message_created')}}: {{message.createdTime}}, {{$ml.get('message_expires')}}: {{message.expiredTime}}</p>
+          <p>{{$ml.get('to')}}: {{message.recipients | truncate(100)}}</p>
         </div>
         <div class="message_content" v-html="this.message.content"></div>
       </div>
@@ -60,8 +64,9 @@ export default {
     return {
       test: "null",
       resultsExist: false,
-      message: {"recipients": ""},
-      nextMessageId: null
+      message: { recipients: "" },
+      nextMessageId: null,
+      previousMessageId: null
     };
   },
   mounted() {
@@ -72,20 +77,46 @@ export default {
     getNextMessageId() {
       return IdArray.getNext(this.messageList, this.navigation.content.id);
     },
-    async getMessage() {
-      this.nextMessageId=this.getNextMessageId();
+    getPreviousMessageId() {
+      return IdArray.getPrevious(this.messageList, this.navigation.content.id);
+    },
+    // messageToDelete: id of message to be deleted
+    // id of the message to be displayed is taken from this.navigation.content.id
+    async getMessage(messageToDelete) {
+      this.nextMessageId = this.getNextMessageId();
+      this.previousMessageId = this.getPreviousMessageId();
       try {
         this.$Progress.start();
-        const response = await ImService.getMessage(
-          this.user.token,
-          this.navigation.content.id
-        );
-        this.message = response.data;
+        let response = "";
+
+        if (messageToDelete > 0) {
+          if (this.navigation.content.message_status == "sent")
+            response = await ImService.withdrawMessageGoNext(
+              this.user.token,
+              messageToDelete,
+              this.navigation.content.id
+            );
+          else
+            response = await ImService.deleteMessageGoNext(
+              this.user.token,
+              messageToDelete,
+              this.navigation.content.id
+            );
+        } else
+          response = await ImService.getMessage(
+            this.user.token,
+            this.navigation.content.id
+          );
+        console.log(response);
+        if (response.data) this.message = response.data;
+        else this.message = { recipients: "" };
+
         //this.saveMessageList(IdArray.getList(this.messages));
         this.resultsExist = true;
         console.log(this.message);
         this.$Progress.finish();
       } catch (err) {
+        console.log(err);
         this.changeTab({
           tab: "ApiFailedAlert",
           source: { tab: "ViewMessage" },
@@ -99,8 +130,19 @@ export default {
         console.log("nie ma wiecej wiadomości");
       } else {
         this.changeTab({ content: { id: this.nextMessageId } });
-        this.getMessage();
+        this.getMessage(0);
       }
+    },
+    getPreviousMessage() {
+      if (this.previousMessageId != -1) {
+        this.changeTab({ content: { id: this.previousMessageId } });
+        this.getMessage(0);
+      }
+    },
+    deleteMessageGoNext() {
+      let messageToDelete = this.navigation.content.id;
+      this.changeTab({ content: { id: this.nextMessageId } });
+      this.getMessage(messageToDelete);
     }
   }
 };
@@ -159,7 +201,7 @@ h2 {
 .message_properties {
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin: 0 20px;  
+  margin: 0 20px;
   padding: 5px;
   background-color: #fff;
   color: #666;

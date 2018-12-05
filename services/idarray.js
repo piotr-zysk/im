@@ -20,6 +20,19 @@ export default {
             }
         }
         return output;
+    },
+
+    getPrevious(items,givenId) {
+        var output=-1;
+        for (var i=1; i<(items.length); i++)
+        {
+            if (givenId==items[i])
+            {
+                output=items[i-1];
+                break;
+            }
+        }
+        return output;
     }
 
 }

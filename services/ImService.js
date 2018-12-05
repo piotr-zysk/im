@@ -29,6 +29,11 @@ export default {
     },
     getMessage(token, id) {
         return Api().get('/message/get/' + id, this.token_config(token))
+    },
+    deleteMessageGoNext(token, id, idToGet) {
+        return Api().delete('/message/' + id + '/' + idToGet, this.token_config(token))
+    },
+    withdrawMessageGoNext(token, id, idToGet) {
+        return Api().delete('/message/sent/' + id + '/' + idToGet, this.token_config(token))
     }
-
 }
