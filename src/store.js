@@ -72,6 +72,10 @@ export default new Vuex.Store({
     },
     clearMessageList(state) {
       state.messageList = [];
+    },
+    loadUsersToDbcache(state,users)
+    {
+      state.dbcache.users=users;
     }
 
   },

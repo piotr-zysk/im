@@ -12,6 +12,9 @@ export default {
     getGroups() {
         return Api().get('/groups')
     },
+    getUsers(token) {
+        return Api().get('/recipients/all', this.token_config(token))
+    },
     getTest(params) {
         return Api().get('/groups?limit=1&headword=' + params.word)
     },

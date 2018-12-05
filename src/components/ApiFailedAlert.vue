@@ -9,7 +9,7 @@
 
 </ol>
 
-<a href=# class="button alert_content" @click="Retry">{{$ml.get('api_failed_alert_button')}}</a>
+<a href=# v-if="this.navigation.source.tab" class="button alert_content" @click="Retry">{{$ml.get('api_failed_alert_button')}}</a>
   </div>
 </template>
 

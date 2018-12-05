@@ -62,44 +62,22 @@ export default {
     async getMessageList() {
       try {
         this.$Progress.start();
-        //this.saveApiCall({function_name: ImService.getUnreadMessageList.name, function_params: this.user.token, from_tab: 'UnreadList'});
-        //this.saveApiCall({from_tab: 'UnreadList'});
         const response = await ImService.getMessageList(
           this.user.token,
           this.type
         );
         this.messages = response.data;
         this.saveMessageList(IdArray.getList(this.messages));
-
-        /*
-        var x=IdArray.getList(this.messages);
-        x.forEach(element => {
-          console.log(element + " -> " + IdArray.getNext(x,element))
-        });
-                //this.test = response.data;
-        */
-
         this.resultsExist = true;
         this.$Progress.finish();
       } catch (err) {
-        //console.log(fn);
-        //console.log(err);
-        //this.test = err.message;
-        
         this.changeTab({
           tab: "ApiFailedAlert",
           source: { tab: this.getSource }
         });
-        //zrob fajny alert "Brak mozliwosci pobrania danych. Zaloguj sie ponownie / powiadmo administratora"
         this.$Progress.fail();
       }
     }
-    /*
-    ,
-    goToMessage(id) {
-
-    }
-    */
   }
 };
 </script>
