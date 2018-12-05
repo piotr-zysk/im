@@ -17,6 +17,7 @@ import UnreadList from "./components/UnreadList.vue";
 import ReadList from "./components/ReadList.vue";
 import SentList from "./components/SentList.vue";
 import ViewMessage from "./components/ViewMessage.vue";
+import NewMessage from "./components/NewMessage.vue";
 import ApiFailedAlert from "./components/ApiFailedAlert.vue";
 import Footer from "./components/Footer.vue";
 import ImService from "@/../services/ImService";
@@ -32,6 +33,7 @@ export default {
     SentList,
     ApiFailedAlert,
     ViewMessage,
+    NewMessage,
     Footer
   },
     mounted() {
