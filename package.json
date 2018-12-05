@@ -10,8 +10,10 @@
   "dependencies": {
     "ajv": "^6.5.5",
     "axios": "^0.18.0",
+    "ckeditor": "^4.11.1",
     "es6-promise": "^4.2.5",
     "vue": "^2.5.17",
+    "vue-ckeditor2": "^2.1.1",
     "vue-google-signin-button": "^1.0.2",
     "vue-multilanguage": "^4.0.7",
     "vue-progressbar": "^0.7.5",
