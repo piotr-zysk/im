@@ -8,7 +8,7 @@
     >
     <Editor class="newmessage_editor"></Editor>
     <div class="newmessage_attachment">
-      <input type="file" name="file" id="file" accept="image/x-png,image/gif,image/jpeg">
+      <input type="file" name="file" id="file" accept="image/jpeg" ref="myFiles" @change="loadImage"> <!-- image/x-png,image/gif, -->
       <label for="file" class="button_small_shadow"><i class="fas fa-upload"></i> {{$ml.get('attach_image')}}</label>
       <A href="#" :class="{button_small:form_ready, button_small_disable:!form_ready}"><i class="fas fa-shipping-fast"></i> {{$ml.get('send')}}</A>
       <A href="#" class="button_small_shadow" @click="resetForm();"><i class="fas fa-toilet-paper"></i> {{$ml.get('reset_form')}}</A>
@@ -23,7 +23,8 @@ export default {
   name: "NewMessage",
   data: function() {
     return {
-      title: ""
+      title: "",
+      imageFile: ""
     };
   },
   computed: {
@@ -35,6 +36,10 @@ export default {
   methods: {
     resetForm() {
       this.title = "";
+    },
+    loadImage() {
+      this.imageFile = this.$refs.myFiles.files[0];
+      if (this.imageFile!='image/jpeg') console.log(this.imageFile);
     }
   },
   components: {
