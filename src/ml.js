@@ -35,7 +35,10 @@ export default new MLCreate({
       attach_image: 'add image',
       send: 'send',
       reset_form: 'reset form',
-      message_title: 'message title'
+      message_title: 'message title',
+      error: 'Error',
+      wrong_file_type: 'Incompatible file type'
+
     }),
 
     new MLanguage('polski').create({
@@ -66,7 +69,9 @@ export default new MLCreate({
       attach_image: 'załącz obrazek',
       send: 'wyślij',
       reset_form: 'wyczyść formularz',
-      message_title: 'tytuł wiadomości'
+      message_title: 'tytuł wiadomości',
+      error: 'Błąd',
+      wrong_file_type: 'Ten typ plików nie jest obsługiwany'
 
     })
   ]

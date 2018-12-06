@@ -5,6 +5,10 @@ import GSignInButton from 'vue-google-signin-button'
 import './ml'
 import VueProgressBar from 'vue-progressbar'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
 Vue.use(GSignInButton)
 var VueTruncate = require('vue-truncate-filter')
 Vue.use(VueTruncate)

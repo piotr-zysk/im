@@ -11,6 +11,7 @@
     "ajv": "^6.5.5",
     "axios": "^0.18.0",
     "ckeditor": "^4.11.1",
+    "element-ui": "^2.4.11",
     "es6-promise": "^4.2.5",
     "vue": "^2.5.17",
     "vue-ckeditor2": "^2.1.1",
