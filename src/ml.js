@@ -31,7 +31,11 @@ export default new MLCreate({
       del_message: 'delete',
       withdraw_message: 'withdraw',
       from: 'from',
-      to: 'to'
+      to: 'to',
+      attach_image: 'add image',
+      send: 'send',
+      reset_form: 'reset form',
+      message_title: 'message title'
     }),
 
     new MLanguage('polski').create({
@@ -58,7 +62,12 @@ export default new MLCreate({
       del_message: 'skasuj',
       withdraw_message: 'wycofaj',
       from: 'od',
-      to: 'do'
+      to: 'do',
+      attach_image: 'załącz obrazek',
+      send: 'wyślij',
+      reset_form: 'wyczyść formularz',
+      message_title: 'tytuł wiadomości'
+
     })
   ]
 })

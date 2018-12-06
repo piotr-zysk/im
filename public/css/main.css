@@ -11,8 +11,65 @@
     color: #fff;
 }
 
+.button_small {
+    padding: 5px 15px;
+    color: #fff;
+    background-color: rgba(64, 115, 158, 1);
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: color 0.1s;
+}
+
+.button_small:hover {
+    background-color: rgba(194, 54, 22, 1);
+}
+
+.button_small_disable {
+    padding: 5px 15px;
+    color: #fff;
+    background-color: #bbb;
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    font-weight: bold;
+    margin-right: 5px;
+    transition: color 0.1s;
+}
+
+.button_small_shadow {
+    padding: 4px 15px;
+    color: rgba(64, 115, 158, 0.9);
+    background-color: #fff;
+    border: 1px solid rgba(64, 115, 158, 0.9);
+    border-radius: 5px;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.button_small_shadow:hover {
+    color: rgba(194, 54, 22, 0.7);
+    border: 1px solid rgba(194, 54, 22, 0.7);
+}
+
 /* ----------------------------- */
+
 /* VewMessage */
+
 /* ----------------------------- */
 
 .message_content {
@@ -22,10 +79,9 @@
     box-shadow: 0 4px 10px #ccc;
     margin: 10px 20px;
     padding: 10px;
-   /* background-color: #fff;*/
-  }
+    /* background-color: #fff;*/
+}
 
 .message_content font table {
     background-color: inherit;
 }
-  

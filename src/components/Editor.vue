@@ -1,6 +1,6 @@
 <template>
-  <div class="editor_component">
-    <p>tytuł, wybór adresatów...</p>
+  <div>
+    
 
     <vue-ckeditor v-model="content" :config="config"/>
 
@@ -43,7 +43,7 @@ export default {
           { name: "styles" },
           { name: "colors" }
         ],
-        height: 300,
+        height: 200,
         language: "en"
       }
     };
@@ -73,13 +73,5 @@ export default {
 };
 </script>
 
-<style>
-.editor_component {
-  width: 90%;
-  margin: 20px auto;
-  box-shadow: 0 3px 3px #ccc;
-  outline: none;
-  text-align: left;
-}
-</style>
+
 
