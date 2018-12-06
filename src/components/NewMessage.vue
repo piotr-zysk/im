@@ -8,7 +8,14 @@
     >
     <Editor class="newmessage_editor"></Editor>
 
-    <div><img class="newmessage_picture" v-show="showPreview" :src="imagePreview"></div>
+    <div>
+      <img
+        class="newmessage_picture"
+        id="newmessage_picture"
+        v-show="showPreview"
+        :src="imagePreview"
+      >
+    </div>
 
     <div class="newmessage_footer">
       <input
@@ -34,12 +41,12 @@
         {{$ml.get('reset_form')}}
       </A>
     </div>
+    <!-- <A href=# @click="test">test</A> -->
   </div>
 </template>
 
 <script>
 import Editor from "./Editor.vue";
-
 
 export default {
   name: "NewMessage",
@@ -60,6 +67,12 @@ export default {
     }
   },
   methods: {
+    /*
+    test() {
+        
+          console.log(this.imagePreview);
+    },
+    */
     getImage(imgbody) {
       const imgt = new Image();
       imgt.src = imgbody;
@@ -78,11 +91,17 @@ export default {
       Set the local file variable to what the user has selected.
     */
       this.file = this.$refs.file.files[0];
+      //console.log(this.file);
 
       if (this.file.type != "image/jpeg") {
         this.$message.error({ message: this.$ml.get("wrong_file_type") });
         return;
       }
+      else if (this.file.size > 5242880) {
+        this.$message.error({ message: this.$ml.get("file_too_big") });
+        return;
+      }
+      
       /*
       Initialize a File Reader object
     */
@@ -93,11 +112,60 @@ export default {
       has been loaded, we flag the show preview as true and set the
       image to be what was read from the reader.
     */
+      
+
       reader.addEventListener(
         "load",
         function() {
-          this.showPreview = true;
+            //console.log(document);
+          // change/adjust image resolution
+          /*
+            const p_img = new Image();
+            p_img.src=reader.result;
+            const canvas = document.createElement('canvas');
+            //var canvas = $("<canvas>", {"id":"testing"})[0];
+            let ctx = canvas.getContext("2d");
+            //ctx.drawImage(p_img, 0, 0);
+
+            let MAX_WIDTH = 1700;
+            let MAX_HEIGHT = 2000;
+            let width = p_img.width;
+            let height = p_img.height;
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            //ctx = canvas.getContext("2d");
+            ctx.drawImage(p_img, 0, 0, width, height);
+
+
+                ctx.canvas.toBlob((blob) => {
+                    const efile = new File([blob], fileName, {
+                        type: 'image/jpeg',lastModified: Date.now()
+                    });
+                }, 'image/jpeg', 1);
+
+            //let dataurl = ctx.canvas.toDataURL("image/jpg");
+
+            //document.getElementById('output').src = dataurl;
+
+
+          //this.imagePreview = dataurl;
+          */
+
+
           this.imagePreview = reader.result;
+          this.showPreview = true;
+
         }.bind(this),
         false
       );
@@ -140,7 +208,7 @@ export default {
   background-color: #fff;
   box-shadow: 0 3px 3px #ccc;
   padding: 4px 0;
-  margin: 10px 0;
+  margin-top: 10px;
   outline: none;
   font-size: 130%;
 }
@@ -150,13 +218,14 @@ export default {
   background-color: #fff;
   box-shadow: 0 3px 3px #ccc;
   padding: 4px 0;
+  margin-top: 10px;
   outline: none;
 }
 .newmessage_picture {
   border: none;
   background-color: #fff;
   box-shadow: 0 3px 3px #ccc;
-  margin: 10px 0;
+  margin-top: 10px;
   outline: none;
   width: 100%;
 }
@@ -164,8 +233,8 @@ export default {
   border: none;
   background-color: #fff;
   box-shadow: 0 3px 3px #ccc;
+  margin-top: 10px;
   padding: 4px 4px;
-  margin: 10px 0;
   outline: none;
 }
 .newmessage_footer input {

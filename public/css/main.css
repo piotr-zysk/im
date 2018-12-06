@@ -75,7 +75,7 @@
 .message_content {
     font-size: 70%;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     box-shadow: 0 4px 10px #ccc;
     margin: 10px 20px;
     padding: 10px;

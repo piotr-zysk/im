@@ -44,6 +44,7 @@ export default {
           { name: "colors" }
         ],
         height: 200,
+        autoresize: true,
         language: "en"
       }
     };
