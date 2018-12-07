@@ -47,6 +47,7 @@
 
 <script>
 import Editor from "./Editor.vue";
+import ImgHelper from "@/../services/ImgHelper";
 
 export default {
   name: "NewMessage",
@@ -96,12 +97,13 @@ export default {
       if (this.file.type != "image/jpeg") {
         this.$message.error({ message: this.$ml.get("wrong_file_type") });
         return;
-      }
+      } 
+      /*
       else if (this.file.size > 5242880) {
         this.$message.error({ message: this.$ml.get("file_too_big") });
         return;
       }
-      
+      */
       /*
       Initialize a File Reader object
     */
@@ -112,71 +114,20 @@ export default {
       has been loaded, we flag the show preview as true and set the
       image to be what was read from the reader.
     */
-      
 
       reader.addEventListener(
         "load",
         function() {
-            //console.log(document);
-          // change/adjust image resolution
-          /*
-            const p_img = new Image();
-            p_img.src=reader.result;
-            const canvas = document.createElement('canvas');
-            //var canvas = $("<canvas>", {"id":"testing"})[0];
-            let ctx = canvas.getContext("2d");
-            //ctx.drawImage(p_img, 0, 0);
-
-            let MAX_WIDTH = 1700;
-            let MAX_HEIGHT = 2000;
-            let width = p_img.width;
-            let height = p_img.height;
-            if (width > height) {
-                if (width > MAX_WIDTH) {
-                    height *= MAX_WIDTH / width;
-                    width = MAX_WIDTH;
-                }
-            } else {
-                if (height > MAX_HEIGHT) {
-                    width *= MAX_HEIGHT / height;
-                    height = MAX_HEIGHT;
-                }
-            }
-            canvas.width = width;
-            canvas.height = height;
-            //ctx = canvas.getContext("2d");
-            ctx.drawImage(p_img, 0, 0, width, height);
-
-
-                ctx.canvas.toBlob((blob) => {
-                    const efile = new File([blob], fileName, {
-                        type: 'image/jpeg',lastModified: Date.now()
-                    });
-                }, 'image/jpeg', 1);
-
-            //let dataurl = ctx.canvas.toDataURL("image/jpg");
-
-            //document.getElementById('output').src = dataurl;
-
-
-          //this.imagePreview = dataurl;
-          */
-
-
           this.imagePreview = reader.result;
           this.showPreview = true;
 
+          this.limitImageSize();
         }.bind(this),
         false
       );
-
-      /*
-      Check to see if the file is not empty.
-    */
+      //      Check to see if the file is not empty.
       if (this.file) {
-        /*
-        Ensure the file is an image file.
-      */
+        //    Ensure the file is an image file.
         if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
           /*
           Fire the readAsDataURL method which will read the file in and
@@ -184,8 +135,14 @@ export default {
           display the image in the preview.
         */
           reader.readAsDataURL(this.file);
+          reader.abort;
+
         }
       }
+    },
+    async limitImageSize() {
+      var newDataURI = await ImgHelper.limitImageSize(this.imagePreview, 1800);
+      this.imagePreview = newDataURI;
     }
   },
   components: {

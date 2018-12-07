@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       baseUrl: process.env.BASE_URL,
-      language: "english"
+      language: this.$ml.current
     };
   },
   methods: {
