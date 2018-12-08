@@ -88,6 +88,7 @@ export default {
       this.imagePreview = "";
     },
     handleFileUpload() {
+      this.$Progress.start();
       /*
       Set the local file variable to what the user has selected.
     */
@@ -95,9 +96,10 @@ export default {
       //console.log(this.file);
 
       if (this.file.type != "image/jpeg") {
+        this.$Progress.fail();
         this.$message.error({ message: this.$ml.get("wrong_file_type") });
         return;
-      } 
+      }
       /*
       else if (this.file.size > 5242880) {
         this.$message.error({ message: this.$ml.get("file_too_big") });
@@ -114,14 +116,13 @@ export default {
       has been loaded, we flag the show preview as true and set the
       image to be what was read from the reader.
     */
-
       reader.addEventListener(
         "load",
         function() {
           this.imagePreview = reader.result;
           this.showPreview = true;
-
           this.limitImageSize();
+          this.$Progress.finish();
         }.bind(this),
         false
       );
@@ -136,7 +137,6 @@ export default {
         */
           reader.readAsDataURL(this.file);
           reader.abort;
-
         }
       }
     },

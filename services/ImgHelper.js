@@ -5,35 +5,40 @@ export default {
             // We create an image to receive the Data URI
             var img = document.createElement('img');
 
+            let x=0;
             // When the event "onload" is triggered we can resize the image.
             img.onload = function () {
-                img.src=datas;
-
-                if (img.width<=maxWidth) 
+                x++;
+                if (x==1) // workariound to solve the problem with the function running in endless loop
                 {
-                    //console.log('image not resized');
-                    resolve(datas);
-                }
-                else
-                {
-                let wantedHeight = Math.round(maxWidth * img.height / img.width);
-                //console.log(img);
-                // We create a canvas and get its context.
-                let canvas = document.createElement('canvas');
-                let ctx = canvas.getContext('2d');
+                    img.src=datas;
 
-                // We set the dimensions at the wanted size.
-                canvas.width = maxWidth;
-                canvas.height = wantedHeight;
+                    if (img.width<=maxWidth) 
+                    {
+                        //console.log('image not resized');
+                        resolve(datas);
+                    }
+                    else
+                    {
+                    let wantedHeight = Math.round(maxWidth * img.height / img.width);
+                    //console.log(img);
+                    // We create a canvas and get its context.
+                    let canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
 
-                // We resize the image with the canvas method drawImage();
-                ctx.drawImage(this, 0, 0, maxWidth, wantedHeight);
+                    // We set the dimensions at the wanted size.
+                    canvas.width = maxWidth;
+                    canvas.height = wantedHeight;
 
-                let dataURI = canvas.toDataURL();
+                    // We resize the image with the canvas method drawImage();
+                    ctx.drawImage(this, 0, 0, maxWidth, wantedHeight);
 
-                //console.log('image size: '+img.width+"->"+maxWidth)
-                // This is the return of the Promise
-                resolve(dataURI);
+                    let dataURI = canvas.toDataURL();
+
+                    //console.log('image size: '+img.width+"->"+maxWidth)
+                    // This is the return of the Promise
+                    resolve(dataURI);
+                    }
                 }
             };
 
