@@ -1,5 +1,6 @@
 <template>
   <div class="newmessage_component">
+    <recipient-pickup></recipient-pickup>
     <input
       class="newmessage_title"
       type="text"
@@ -47,10 +48,14 @@
 
 <script>
 import Editor from "./Editor.vue";
+import RecipientPickup from "./RecipientPickup.vue";
 import ImgHelper from "@/../services/ImgHelper";
 
 export default {
-  name: "NewMessage",
+  name: "NewMessage",  
+  components: {
+    Editor, RecipientPickup
+  },
   data() {
     return {
       title: "",
@@ -144,9 +149,6 @@ export default {
       var newDataURI = await ImgHelper.limitImageSize(this.imagePreview, 1800);
       this.imagePreview = newDataURI;
     }
-  },
-  components: {
-    Editor
   }
 };
 </script>
