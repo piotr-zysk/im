@@ -41,7 +41,6 @@
         <i class="fas fa-toilet-paper"></i>
         {{$ml.get('reset_form')}}
       </A>
-      <p>test:</p>
     </div>
     <!-- <A href=# @click="test">test</A> -->
   </div>
@@ -71,15 +70,14 @@ export default {
   computed: {
     ...mapState(["message"]),
     form_ready: function() {
-      if (this.title != "") return true;
-      else return false;      
+      if ((this.title != "") && (this.$children[0].listOfRecipients.length>0)) return true;
+      else return false;
     }
   },
   methods: {
     ...mapMutations(["setMessageContent"]),
     /*
     test() {
-        
           console.log(this.imagePreview);
     },
     */
@@ -96,8 +94,9 @@ export default {
       this.showPreview = false;
       this.imagePreview = "";
 
-      this.$children[1].content='';
+      this.$children[1].content=''; //reset message content in ckeditor
       this.setMessageContent('');
+      this.$children[0].allToLeft(); // reset recipient picker
     },
     handleFileUpload() {
       this.$Progress.start();
@@ -174,7 +173,7 @@ export default {
   background-color: #fff;
   box-shadow: 0 3px 3px #ccc;
   padding: 4px 0;
-  margin-top: 10px;
+  margin-top: 0px;
   outline: none;
   font-size: 130%;
 }

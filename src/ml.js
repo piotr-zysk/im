@@ -38,7 +38,8 @@ export default new MLCreate({
       message_title: 'message title',
       error: 'Error',
       wrong_file_type: 'Incompatible file type! .jpg/.jpeg required.',
-      file_too_big: 'File is too big. Size limit: 5MB.'
+      file_too_big: 'File is too big. Size limit: 5MB.',
+      recipients: 'Recipients'
 
     }),
 
@@ -73,7 +74,8 @@ export default new MLCreate({
       message_title: 'tytuł wiadomości',
       error: 'Błąd',
       wrong_file_type: 'Ten typ plików nie jest obsługiwany. Wymagany format .jpg/.jpeg',
-      file_too_big: 'Plik jest zbyt duży. Dopuszczalny rozmiar to 5MB.'
+      file_too_big: 'Plik jest zbyt duży. Dopuszczalny rozmiar to 5MB.',
+      recipients: 'Adresaci'
 
     })
   ]

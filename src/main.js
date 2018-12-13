@@ -25,7 +25,11 @@ Vue.filter('no_empty', function (value, replacement) {
   if ((value!=undefined) && (value.length<1)) return replacement;
   else return value;
 })
-
+Vue.filter('uppercase', function (value) {
+  if (!value) return '';
+  value = value.toString();
+  return value.toUpperCase();
+})
 
 new Vue({
   store,

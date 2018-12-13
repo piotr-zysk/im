@@ -40,7 +40,7 @@ export default {
     this.loadDbCache();
   },
   methods: {
-    ...mapMutations(["loadUsersToDbcache","changeTab","saveApiCall"]),
+    ...mapMutations(["loadUsersToDbcache","changeTab","saveApiCall","unlockMenu"]),
     async loadDbCache() {
       try {
         this.$Progress.start();
@@ -52,6 +52,7 @@ export default {
 
         this.resultsExist = true;
         this.$Progress.finish();
+        this.unlockMenu();
       } catch (err) {
         //console.log(err);
         this.changeTab({

@@ -22,7 +22,7 @@ export default new Vuex.Store({
     },
     navigation: {
       tab: '',
-      locked: false,
+      locked: true,
       content: {
         id: null,
         message_status: null
@@ -44,6 +44,9 @@ export default new Vuex.Store({
     dbcache: {
       users: []
     },
+    settings: {
+      excludedLastNames: ['admin','gosc','user','ops83trening','Jeden','Dwa']
+    },
     messageList: []
 
   },
@@ -62,10 +65,10 @@ export default new Vuex.Store({
     },
     // zablokuj menu, np. w przypadku edycji wiadomosci przejscie do innej zakladki bedzie zablokowane dopoki user nie zapisze albo nie anuluje zmian
     lockMenu(state) {
-      state.tab_locked = true;
+      state.navigation.locked = true;
     },
     unlockMenu(state) {
-      state.tab_locked = false;
+      state.navigation.locked = false;
     },
     saveApiCall(state, call) {
       state.lastApiCall = call;

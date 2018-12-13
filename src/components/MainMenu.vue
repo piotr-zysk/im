@@ -22,13 +22,15 @@ export default {
     ...mapMutations(["changeTab"]),
     is_active_tab(tab) {
       if (this.navigation.tab == tab) return { menu_item_active: true };
-      else if (this.tab_locked) return { menu_item_locked: true };
+      else if (this.navigation.locked) return { menu_item_locked: true };
       else return { menu_item_inactive: true };
     },
     selectTab(tab){
-      if (tab!=this.navigation.tab) 
+      if (tab!=this.navigation.tab)
       {
+        if (!this.navigation.locked) {
         this.changeTab({"tab": tab});
+        }
         // TO DO: emit an event to load tab content
       }
     }
