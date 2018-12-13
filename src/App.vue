@@ -40,12 +40,18 @@ export default {
     this.loadDbCache();
   },
   methods: {
-    ...mapMutations(["loadUsersToDbcache","changeTab","saveApiCall","unlockMenu"]),
+    ...mapMutations(["loadUsersToDbcache","loadGroupsToDbcache","loadCampaignsToDbcache","changeTab","saveApiCall","unlockMenu"]),
     async loadDbCache() {
       try {
         this.$Progress.start();
-        const response = await ImService.getUsers(this.user.token);
-        this.loadUsersToDbcache(response.data)
+        let response = await ImService.getUsers(this.user.token);
+        this.loadUsersToDbcache(response.data);
+
+        response = await ImService.getGroups(this.user.token);
+        this.loadGroupsToDbcache(response.data);
+
+        response = await ImService.getCampaigns(this.user.token);
+        this.loadCampaignsToDbcache(response.data);
 
         //tu doczytaj grupy, kampanie itd
 
@@ -81,5 +87,6 @@ export default {
 * {
   background-color: #f5f6fa;
   transition: all 1.2s;
+  outline: none;
 }
 </style>

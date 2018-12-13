@@ -42,10 +42,13 @@ export default new Vuex.Store({
       from_tab: ''  - dubel z navigationsource.tab
     }, */
     dbcache: {
-      users: []
+      users: [],
+      groups: [],
+      campaigns: [],
+      clients: []
     },
     settings: {
-      excludedLastNames: ['admin','gosc','user','ops83trening','Jeden','Dwa']
+      excludedLastNames: ['admin','gosc','user','ops83trening','Jeden','Dwa','CSR']
     },
     messageList: []
 
@@ -83,7 +86,25 @@ export default new Vuex.Store({
     {
       state.dbcache.users=users;
     },
+    loadGroupsToDbcache(state,groups)
+    {
+      state.dbcache.groups=groups;
+    },
+    loadCampaignsToDbcache(state,campaigns)
+    {
+      state.dbcache.campaigns=campaigns;
 
+      let x=[];
+      let y='';
+      for (let i=0; i<campaigns.length; i++)
+      {        
+        y=campaigns[i].client;
+        if (x.indexOf(y)==-1) x.push(y);
+      }
+      state.dbcache.clients=x;
+
+
+    },
     setMessageContent(state,message)
     {
       state.message.content=message;

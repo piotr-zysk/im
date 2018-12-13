@@ -9,8 +9,11 @@ export default {
 
     token_config(token) { return { headers: { 'Authorization': 'bearer ' + token } } },
 
-    getGroups() {
-        return Api().get('/groups')
+    getGroups(token) {
+        return Api().get('/groups', this.token_config(token))
+    },
+    getCampaigns(token) {
+        return Api().get('/campaigns', this.token_config(token))
     },
     getUsers(token) {
         return Api().get('/recipients/all', this.token_config(token))
