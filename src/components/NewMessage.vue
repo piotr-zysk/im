@@ -7,7 +7,7 @@
       :placeholder="$ml.get('message_title')"
       v-model="title"
     >
-    <Editor class="newmessage_editor"></Editor>
+    <Editor class="newmessage_editor" ></Editor>
 
     <div>
       <img
@@ -41,6 +41,7 @@
         <i class="fas fa-toilet-paper"></i>
         {{$ml.get('reset_form')}}
       </A>
+      <p>test:</p>
     </div>
     <!-- <A href=# @click="test">test</A> -->
   </div>
@@ -50,6 +51,7 @@
 import Editor from "./Editor.vue";
 import RecipientPickup from "./RecipientPickup.vue";
 import ImgHelper from "@/../services/ImgHelper";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "NewMessage",  
@@ -60,19 +62,21 @@ export default {
     return {
       title: "",
       imageFile: "",
-
+      content: "aaa",
       file: "",
       showPreview: false,
       imagePreview: ""
     };
   },
   computed: {
+    ...mapState(["message"]),
     form_ready: function() {
       if (this.title != "") return true;
-      else return false;
+      else return false;      
     }
   },
   methods: {
+    ...mapMutations(["setMessageContent"]),
     /*
     test() {
         
@@ -91,6 +95,9 @@ export default {
       this.file = "";
       this.showPreview = false;
       this.imagePreview = "";
+
+      this.$children[1].content='';
+      this.setMessageContent('');
     },
     handleFileUpload() {
       this.$Progress.start();

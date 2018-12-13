@@ -2,7 +2,7 @@
   <div>
     
 
-    <vue-ckeditor v-model="content" :config="config"/>
+    <vue-ckeditor v-model="content" :config="config" @blur="onBlur"/>
 
     <!--
       @blur="onBlur($event)" 
@@ -17,20 +17,20 @@
 
 <script>
 import VueCkeditor from "vue-ckeditor2";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "Editor",
   components: { VueCkeditor },
-  mounted() {},
-
+  mounted() {}, 
   data() {
     return {
+      ...mapState(["message"]),
       content: "",
       config: {
         toolbarGroups: [
           { groups: ["undo"] },
           { name: "editing", groups: ["find", "selection"] },
-          
 
           {
             name: "basicstyles",
@@ -50,10 +50,11 @@ export default {
     };
   },
   methods: {
-    /*
-    onBlur(evt) {
-      console.log(evt);
+    ...mapMutations(["setMessageContent"]),
+    onBlur() {
+      this.setMessageContent(this.content);
     },
+    /*
     onFocus(evt) {
       console.log(evt);
     },
