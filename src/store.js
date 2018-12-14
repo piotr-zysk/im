@@ -44,8 +44,10 @@ export default new Vuex.Store({
     dbcache: {
       users: [],
       groups: [],
+      groupUsers: [],
       campaigns: [],
-      clients: []
+      clients: [],
+      sites: []
     },
     settings: {
       excludedLastNames: ['admin','gosc','user','ops83trening','Jeden','Dwa','CSR']
@@ -90,6 +92,10 @@ export default new Vuex.Store({
     {
       state.dbcache.groups=groups;
     },
+    loadGroupUsersToDbcache(state,groupUsers)
+    {
+      state.dbcache.groupUsers=groupUsers;
+    },
     loadCampaignsToDbcache(state,campaigns)
     {
       state.dbcache.campaigns=campaigns;
@@ -102,8 +108,10 @@ export default new Vuex.Store({
         if (x.indexOf(y)==-1) x.push(y);
       }
       state.dbcache.clients=x;
-
-
+    },
+    loadSitesToDbcache(state,sites)
+    {
+      state.dbcache.sites=sites;
     },
     setMessageContent(state,message)
     {

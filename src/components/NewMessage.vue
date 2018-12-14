@@ -26,6 +26,7 @@
         accept="image/jpeg"
         ref="file"
         @change="handleFileUpload"
+        @click="resetImage"
       >
       <!-- image/x-png,image/gif, -->
       <label for="file" class="button_small_shadow">
@@ -81,6 +82,10 @@ export default {
           console.log(this.imagePreview);
     },
     */
+    resetImage()  {
+      this.showPreview = false;
+      this.imagePreview = "";
+    },
     getImage(imgbody) {
       const imgt = new Image();
       imgt.src = imgbody;
@@ -91,8 +96,7 @@ export default {
     resetForm() {
       this.title = "";
       this.file = "";
-      this.showPreview = false;
-      this.imagePreview = "";
+      this.resetImage();
 
       this.$children[1].content=''; //reset message content in ckeditor
       this.setMessageContent('');
@@ -106,7 +110,7 @@ export default {
       this.file = this.$refs.file.files[0];
       //console.log(this.file);
 
-      if (this.file.type != "image/jpeg") {
+      if ((this.file != undefined) && (this.file.type != "image/jpeg")) {
         this.$Progress.fail();
         this.$message.error({ message: this.$ml.get("wrong_file_type") });
         return;

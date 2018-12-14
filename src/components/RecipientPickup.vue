@@ -10,10 +10,18 @@
 
     <div class="recipient_pickup" v-show="showMenu">
       <div class="filters">
+
         <select class="filter" id="listOfClients" @change="filterCandidates">
           <option value="all">{{$ml.get('all_clients')}}</option>
           <option v-for="item in dbcache.clients" :key="item">{{item}}</option>
         </select>
+
+        <select class="filter" id="listOfCampaigns" @change="filterCandidates">
+          <option value="all">{{$ml.get('all_campaigns')}}</option>
+          <option v-for="item in dbcache.campaigns" :key="item.id">{{item.name}}</option>
+        </select>
+
+
       </div>
       <select
         class="listbox"
@@ -113,7 +121,7 @@ export default {
       let result = false;
       //clients:
       if (client == "all") result = true;
-      for (let i = 0; i < this.dbcache.clients.length; i++) {
+      else for (let i = 0; i < this.dbcache.campaigns.length; i++) {
         if (
           client == this.dbcache.campaigns[i].client &&
           candidate.campaignId == this.dbcache.campaigns[i].id
@@ -245,8 +253,13 @@ export default {
   box-shadow: 0 3px 3px #ccc;
   cursor: pointer;
 }
+.filters {
+  width: 30%;
+}
+
 .filters select {
-  margin: 0 10px;
+  margin: 0 10px 10px 10px;
   border-radius: 2px;
+  width: 200px;
 }
 </style>

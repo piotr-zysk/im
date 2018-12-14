@@ -40,21 +40,33 @@ export default {
     this.loadDbCache();
   },
   methods: {
-    ...mapMutations(["loadUsersToDbcache","loadGroupsToDbcache","loadCampaignsToDbcache","changeTab","saveApiCall","unlockMenu"]),
+    ...mapMutations([
+      "loadUsersToDbcache",
+      "loadGroupsToDbcache",
+      "loadGroupUsersToDbcache",
+      "loadCampaignsToDbcache",
+      "loadSitesToDbcache",
+      "changeTab",
+      "saveApiCall",
+      "unlockMenu"]),
     async loadDbCache() {
       try {
         this.$Progress.start();
+
         let response = await ImService.getUsers(this.user.token);
         this.loadUsersToDbcache(response.data);
 
         response = await ImService.getGroups(this.user.token);
         this.loadGroupsToDbcache(response.data);
 
+        response = await ImService.getGroupUsers(this.user.token);
+        this.loadGroupUsersToDbcache(response.data);
+
+        response = await ImService.getSites(this.user.token);
+        this.loadSitesToDbcache(response.data);
+
         response = await ImService.getCampaigns(this.user.token);
         this.loadCampaignsToDbcache(response.data);
-
-        //tu doczytaj grupy, kampanie itd
-
 
         this.resultsExist = true;
         this.$Progress.finish();

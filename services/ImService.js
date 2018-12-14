@@ -12,6 +12,12 @@ export default {
     getGroups(token) {
         return Api().get('/groups', this.token_config(token))
     },
+    getGroupUsers(token) {
+        return Api().get('/groups/users', this.token_config(token))
+    },
+    getSites(token) {
+        return Api().get('/sites', this.token_config(token))
+    },
     getCampaigns(token) {
         return Api().get('/campaigns', this.token_config(token))
     },

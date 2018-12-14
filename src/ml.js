@@ -40,7 +40,10 @@ export default new MLCreate({
       wrong_file_type: 'Incompatible file type! .jpg/.jpeg required.',
       file_too_big: 'File is too big. Size limit: 5MB.',
       recipients: 'Recipients',
-      all_clients: 'all clients'
+      all_clients: 'all clients',
+      all_campaigns: 'all campaigns',
+      all_sites: 'all sites',
+      all_groups: 'all groups'
 
     }),
 
@@ -77,7 +80,10 @@ export default new MLCreate({
       wrong_file_type: 'Ten typ plików nie jest obsługiwany. Wymagany format .jpg/.jpeg',
       file_too_big: 'Plik jest zbyt duży. Dopuszczalny rozmiar to 5MB.',
       recipients: 'Adresaci',
-      all_clients: 'wszyscy klienci'
+      all_clients: 'wszyscy klienci',
+      all_campaigns: 'wszystkie kampanie',
+      all_sites: 'wszystkie lokalizacje',
+      all_groups: 'wszystkie grupy'
 
     })
   ]
