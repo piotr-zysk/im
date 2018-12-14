@@ -3,7 +3,7 @@
     <div class="recipient_string" v-show="!showMenu" @click="toggleMenu">
       <p>
         <i class="fas fa-angle-double-down"></i>
-        <strong>{{$ml.get('recipients') | uppercase}}:</strong>
+        <strong> {{$ml.get('recipients') | uppercase}}:</strong>
         {{recipient_string | truncate(600)}}
       </p>
     </div>
@@ -21,6 +21,15 @@
           <option v-for="item in dbcache.campaigns" :key="item.id">{{item.name}}</option>
         </select>
 
+        <select class="filter" id="listOfSites" @change="filterCandidates">
+          <option value="all">{{$ml.get('all_sites')}}</option>
+          <option v-for="item in dbcache.sites" :key="item.id">{{item.name}}</option>
+        </select>
+
+        <select class="filter" id="listOfGroups" @change="filterCandidates">
+          <option value="all">{{$ml.get('all_groups')}}</option>
+          <option v-for="item in dbcache.groups" :key="item.id">{{item.name}}</option>
+        </select>
 
       </div>
       <select
@@ -254,12 +263,15 @@ export default {
   cursor: pointer;
 }
 .filters {
-  width: 30%;
+  width: 220px;
 }
 
 .filters select {
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 20px 10px;
   border-radius: 2px;
   width: 200px;
+}
+select:last-of-type option {
+  font-weight: bold;
 }
 </style>
