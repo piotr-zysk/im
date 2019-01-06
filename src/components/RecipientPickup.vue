@@ -239,7 +239,7 @@ export default {
 }
 .recipient_transfer {
   display: block;
-  width: calc(100%-500px);
+  width: 130px; /* calc(100%-700px); */
   align-items: center;
 }
 .recipient_transfer button {
