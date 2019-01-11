@@ -4,13 +4,16 @@
       <div>
         <div class="message_menu">
           <a href="#">
-            <i class="fas fa-reply"></i>
+            <i class="fas fa-reply" @click="reply()"></i>
             <p>{{$ml.get('reply')}}</p>
           </a>
+          <!--
           <a href="#">
-            <i class="fas fa-reply-all" @click="replyToAll()"></i>
+            <i class="fas fa-reply-all"></i>
             <p>{{$ml.get('reply_all')}}</p>
           </a>
+         -->
+         
           <!--
           <a href="#">
             <i class="fas fa-search-plus"></i>
@@ -75,9 +78,11 @@ export default {
   },
   methods: {
     ...mapMutations(["changeTab", "saveApiCall", "setMessage"]),
-     replyToAll() {
-       this.setMessage({"title": "Re:"+this.message.title, "content" : this.message.content});
+     reply() {
+       //let recipients = this.message.recipients
+       this.setMessage({"title": "Re:"+this.message.title, "content" : this.message.content, "recipients": [this.message.authorId]});
        this.changeTab({"tab": "NewMessage"});
+       //console.log(this.message);
      },
      getRecipientNames(idstring,limit=0) {
       //limit 0 = no limit (better to limit number of users to translate form ID to username, for performance reason)

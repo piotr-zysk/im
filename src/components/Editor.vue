@@ -24,7 +24,7 @@ export default {
   components: { VueCkeditor },
   mounted() {
     if ((this.message_store.content != '') && (this.message_store.content != undefined)) this.content=this.message_store.content;
-    console.log(this.content+'/'+this.message_store.content);
+    //console.log(this.content+'/'+this.message_store.content);
   },
   computed: mapState(["message_store"]),
   data() {

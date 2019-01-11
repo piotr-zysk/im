@@ -103,10 +103,15 @@ export default {
       }
     }
     this.listOfCandidatesNotFiltered = this.listOfCandidates;
+    
+    // load recipient for Reply
+    for (let i=0; i<this.listOfCandidates.length; i++) {
+        if (this.message_store.recipients.includes(this.listOfCandidates[i].id))
+          this.listOfRecipients.push(this.listOfCandidates[i]);
+      }
+    //this.listOfRecipients=this.listOfCandidates; //this.message_store.recipients;
   },
-  computed: {
-    ...mapState(["dbcache", "settings"])
-  },
+  computed: mapState(["dbcache", "settings", "message_store"]),
   watch: {
     listOfRecipients: function() {
       let x = "";
@@ -116,7 +121,7 @@ export default {
         x = x + this.listOfRecipients[i].name;
       }
       this.recipient_string = x;
-      //console.log(x);
+
     }
   },
   methods: {
