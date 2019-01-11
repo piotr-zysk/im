@@ -19,7 +19,7 @@ export default {
     msg: String
   },
   methods: {
-    ...mapMutations(["changeTab"]),
+    ...mapMutations(["changeTab","setMessage"]),
     is_active_tab(tab) {
       if (this.navigation.tab == tab) return { menu_item_active: true };
       else if (this.navigation.locked) return { menu_item_locked: true };
@@ -28,6 +28,8 @@ export default {
     selectTab(tab){
       if (tab!=this.navigation.tab)
       {
+        if (tab=="NewMessage") this.setMessage({"title": "", "content" : "", "recipients": []});
+
         if (!this.navigation.locked) {
         this.changeTab({"tab": tab});
         }
