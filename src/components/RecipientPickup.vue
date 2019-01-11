@@ -18,17 +18,17 @@
 
         <select class="filter" id="listOfCampaigns" @change="filterCandidates">
           <option value="all">{{$ml.get('all_campaigns')}}</option>
-          <option v-for="item in dbcache.campaigns" :key="item.id">{{item.name}}</option>
+          <option v-for="item in dbcache.campaigns" :key="item.id" :value="item.id">{{item.name}}</option>
         </select>
 
         <select class="filter" id="listOfSites" @change="filterCandidates">
           <option value="all">{{$ml.get('all_sites')}}</option>
-          <option v-for="item in dbcache.sites" :key="item.id">{{item.name}}</option>
+          <option v-for="item in dbcache.sites" :key="item.id" :value="item.id">{{item.name}}</option>
         </select>
 
         <select class="filter" id="listOfGroups" @change="filterCandidates">
           <option value="all">{{$ml.get('all_groups')}}</option>
-          <option v-for="item in dbcache.groups" :key="item.id">{{item.name}}</option>
+          <option v-for="item in dbcache.groups" :key="item.id" :value="item.id">{{item.name}}</option>
         </select>
 
       </div>
@@ -91,7 +91,8 @@ export default {
         y = {
           id: x.id,
           name: x.lastName + " " + x.firstName,
-          campaignId: x.campaignId
+          campaignId: x.campaignId,
+          siteId: x.siteId
         };
         this.listOfCandidates.push(y);
         this.ListOfCandidatesNotFiltered.push({
@@ -126,20 +127,47 @@ export default {
     isValidCandidate(candidate) {
       let id = candidate.id;
 
-      let client = document.getElementById("listOfClients").value;
+      //clients
+      let filter = document.getElementById("listOfClients").value;
       let result = false;
-      //clients:
-      if (client == "all") result = true;
+      if (filter == "all") result = true;
       else for (let i = 0; i < this.dbcache.campaigns.length; i++) {
         if (
-          client == this.dbcache.campaigns[i].client &&
+          filter == this.dbcache.campaigns[i].client &&
           candidate.campaignId == this.dbcache.campaigns[i].id
         ) {
           result = true;
           break;
         }
       }
-      //console.log(user);
+      if (!result) return result;
+
+      //campaigns
+      result = false;
+      filter = document.getElementById("listOfCampaigns").value;
+      if ((filter=="all") || (filter==candidate.campaignId)) result = true;
+      if (!result) return result;
+
+      //sites
+      result = false;
+      filter = document.getElementById("listOfSites").value;
+      if ((filter=="all") || (filter==candidate.siteId)) result = true;
+      if (!result) return result;
+
+      //groups:
+      filter = document.getElementById("listOfGroups").value;
+      result = false;
+      if (filter == "all") result = true;
+      else for (let i = 0; i < this.dbcache.groupUsers.length; i++) {
+        if (
+          (filter == this.dbcache.groupUsers[i].groupId) &&
+          candidate.id == this.dbcache.groupUsers[i].userId
+        ) {
+          result = true;
+          break;
+        }
+      }
+
       return result;
     },
     filterCandidates() {
