@@ -8,7 +8,7 @@
             <p>{{$ml.get('reply')}}</p>
           </a>
           <a href="#">
-            <i class="fas fa-reply-all"></i>
+            <i class="fas fa-reply-all" @click="replyToAll()"></i>
             <p>{{$ml.get('reply_all')}}</p>
           </a>
           <!--
@@ -74,7 +74,11 @@ export default {
     this.getMessage();
   },
   methods: {
-    ...mapMutations(["changeTab", "saveApiCall"]),
+    ...mapMutations(["changeTab", "saveApiCall", "setMessage"]),
+     replyToAll() {
+       this.setMessage({"title": "Re:"+this.message.title, "content" : this.message.content});
+       this.changeTab({"tab": "NewMessage"});
+     },
      getRecipientNames(idstring,limit=0) {
       //limit 0 = no limit (better to limit number of users to translate form ID to username, for performance reason)
       if (limit==0) limit=10000;

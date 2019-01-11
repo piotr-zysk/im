@@ -22,11 +22,15 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "Editor",
   components: { VueCkeditor },
-  mounted() {}, 
+  mounted() {
+    if ((this.message_store.content != '') && (this.message_store.content != undefined)) this.content=this.message_store.content;
+    console.log(this.content+'/'+this.message_store.content);
+  },
+  computed: mapState(["message_store"]),
   data() {
     return {
-      ...mapState(["message"]),
-      content: "",
+      //...mapState(["message_store"]),
+      content: '',
       config: {
         toolbarGroups: [
           { groups: ["undo"] },

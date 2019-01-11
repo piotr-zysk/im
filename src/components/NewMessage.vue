@@ -7,7 +7,7 @@
       :placeholder="$ml.get('message_title')"
       v-model="title"
     >
-    <Editor class="newmessage_editor" ></Editor>
+    <Editor class="newmessage_editor"></Editor>
 
     <div>
       <img
@@ -54,35 +54,34 @@ import ImgHelper from "@/../services/ImgHelper";
 import { mapState, mapMutations } from "vuex";
 
 export default {
-  name: "NewMessage",  
+  name: "NewMessage",
   components: {
-    Editor, RecipientPickup
+    Editor,
+    RecipientPickup
   },
   data() {
     return {
       title: "",
       imageFile: "",
-      content: "aaa",
+      //content: "",
       file: "",
       showPreview: false,
       imagePreview: ""
     };
   },
   computed: {
-    ...mapState(["message"]),
+    ...mapState(["message_store"]),
     form_ready: function() {
-      if ((this.title != "") && (this.$children[0].listOfRecipients.length>0)) return true;
+      if (this.title != "" && this.$children[0].listOfRecipients.length > 0)
+        return true;
       else return false;
     }
   },
+  mounted() {
+    if (this.message_store.title != "") this.title = this.message_store.title;
+  },
   methods: {
-    ...mapMutations(["setMessageContent"]),
-    /*
-    test() {
-          console.log(this.imagePreview);
-    },
-    */
-    resetImage()  {
+    resetImage() {
       this.showPreview = false;
       this.imagePreview = "";
     },
@@ -98,8 +97,8 @@ export default {
       this.file = "";
       this.resetImage();
 
-      this.$children[1].content=''; //reset message content in ckeditor
-      this.setMessageContent('');
+      this.$children[1].content = ""; //reset message content in ckeditor
+      this.setMessageContent("");
       this.$children[0].allToLeft(); // reset recipient picker
     },
     handleFileUpload() {
@@ -110,7 +109,7 @@ export default {
       this.file = this.$refs.file.files[0];
       //console.log(this.file);
 
-      if ((this.file != undefined) && (this.file.type != "image/jpeg")) {
+      if (this.file != undefined && this.file.type != "image/jpeg") {
         this.$Progress.fail();
         this.$message.error({ message: this.$ml.get("wrong_file_type") });
         return;

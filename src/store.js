@@ -31,8 +31,10 @@ export default new Vuex.Store({
         tab: ''
       }
     },
-    message: {
-      content: ''
+    message_store: {
+      content: '',
+      recipients: [],
+      title: ''
     },
     // data for "Retry" button
     /*
@@ -50,7 +52,7 @@ export default new Vuex.Store({
       sites: []
     },
     settings: {
-      excludedLastNames: ['admin','gosc','user','ops83trening','Jeden','Dwa','CSR']
+      excludedLastNames: ['admin', 'gosc', 'user', 'ops83trening', 'Jeden', 'Dwa', 'CSR']
     },
     messageList: []
 
@@ -64,8 +66,8 @@ export default new Vuex.Store({
         state.navigation.tab = navigation.tab;
       }
       if (navigation.locked != undefined) state.navigation.locked = navigation.locked;
-      if ((navigation.content!=undefined) && (navigation.content.id != undefined)) state.navigation.content.id = navigation.content.id;
-      if ((navigation.content!=undefined) && (navigation.content.message_status != undefined)) state.navigation.content.message_status = navigation.content.message_status;
+      if ((navigation.content != undefined) && (navigation.content.id != undefined)) state.navigation.content.id = navigation.content.id;
+      if ((navigation.content != undefined) && (navigation.content.message_status != undefined)) state.navigation.content.message_status = navigation.content.message_status;
       if ((navigation.source != undefined) && (navigation.source.tab != undefined)) state.navigation.source.tab = navigation.source.tab;
     },
     // zablokuj menu, np. w przypadku edycji wiadomosci przejscie do innej zakladki bedzie zablokowane dopoki user nie zapisze albo nie anuluje zmian
@@ -84,38 +86,34 @@ export default new Vuex.Store({
     clearMessageList(state) {
       state.messageList = [];
     },
-    loadUsersToDbcache(state,users)
-    {
-      state.dbcache.users=users;
+    loadUsersToDbcache(state, users) {
+      state.dbcache.users = users;
     },
-    loadGroupsToDbcache(state,groups)
-    {
-      state.dbcache.groups=groups;
+    loadGroupsToDbcache(state, groups) {
+      state.dbcache.groups = groups;
     },
-    loadGroupUsersToDbcache(state,groupUsers)
-    {
-      state.dbcache.groupUsers=groupUsers;
+    loadGroupUsersToDbcache(state, groupUsers) {
+      state.dbcache.groupUsers = groupUsers;
     },
-    loadCampaignsToDbcache(state,campaigns)
-    {
-      state.dbcache.campaigns=campaigns;
+    loadCampaignsToDbcache(state, campaigns) {
+      state.dbcache.campaigns = campaigns;
 
-      let x=[];
-      let y='';
-      for (let i=0; i<campaigns.length; i++)
-      {        
-        y=campaigns[i].client;
-        if (x.indexOf(y)==-1) x.push(y);
+      let x = [];
+      let y = '';
+      for (let i = 0; i < campaigns.length; i++) {
+        y = campaigns[i].client;
+        if (x.indexOf(y) == -1) x.push(y);
       }
-      state.dbcache.clients=x;
+      state.dbcache.clients = x;
     },
-    loadSitesToDbcache(state,sites)
-    {
-      state.dbcache.sites=sites;
+    loadSitesToDbcache(state, sites) {
+      state.dbcache.sites = sites;
     },
-    setMessageContent(state,message)
-    {
-      state.message.content=message;
+    setMessageContent(state, message) {
+      state.message_store.content = message;
+    },
+    setMessage(state, message) {
+      state.message_store = message;
     }
 
   },
