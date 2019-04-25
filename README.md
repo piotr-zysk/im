@@ -1,6 +1,6 @@
 # imf
 
-# Intranet Messenger FronEnd created with Vue
+# Intranet Messenger FrontEnd created with Vue
 
 ## Project setup
 ```
