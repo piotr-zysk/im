@@ -1,5 +1,7 @@
 # imf
 
+# Intranet Messenger FronEnd created with Vue
+
 ## Project setup
 ```
 npm install
